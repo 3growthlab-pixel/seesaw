@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = 80; // 80포트로 변경하려면 이 값을 80으로 수정하세요. (현재 환경에서는 3000 고정)
+  const PORT = process.env.PORT || 3000;
 
   // Enable JSON parsing
   app.use(express.json());
