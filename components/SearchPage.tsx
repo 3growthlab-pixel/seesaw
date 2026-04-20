@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useContents } from '../hooks/useContents';
 import { ContentItem } from '../types';
+import { getImageUrl } from '../lib/imageUrl';
 
 interface SearchPageProps {
   onBack: () => void;
@@ -147,7 +148,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ onBack, onItemClick }) => {
                     onClick={() => onItemClick(item)}
                   >
                     <div className="relative aspect-[3/4] rounded-xl overflow-hidden mb-3">
-                      <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" referrerPolicy="no-referrer" />
+                      <img src={getImageUrl(item.imageUrl)} alt={item.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" referrerPolicy="no-referrer" />
                       <div className="absolute bottom-2 left-2 bg-seeSawAmber text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
                         오늘공고
                       </div>

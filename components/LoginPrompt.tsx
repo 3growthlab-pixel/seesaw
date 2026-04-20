@@ -11,7 +11,7 @@ const LoginPrompt: React.FC<LoginPromptProps> = ({ onLoginClick }) => {
       {/* Logo & Title */}
       <div className="text-center mb-10">
         <div className="flex justify-center mb-2">
-          <img src="/seesaw-logo.png" alt="SEE-SAW Logo" className="h-12 w-auto object-contain" />
+          <img src={`${import.meta.env.BASE_URL}seesaw-logo.png`} alt="SEE-SAW Logo" className="h-12 w-auto object-contain" />
         </div>
         <h2 className="text-2xl font-bold text-darkText leading-tight">
           SEE-SAW는 <br />
@@ -26,10 +26,10 @@ const LoginPrompt: React.FC<LoginPromptProps> = ({ onLoginClick }) => {
         {/* Stylized Boxes mimicking the image */}
         <div className="relative z-10">
           <div className="w-32 h-20 bg-seeSawLight/60 rounded-lg shadow-sm border border-seeSawAmber/20 flex items-center justify-center transform -rotate-6 translate-x-4 -translate-y-4">
-            <img src="/seesaw-logo.png" alt="SEE-SAW Logo" className="h-6 w-auto object-contain opacity-80" />
+            <img src={`${import.meta.env.BASE_URL}seesaw-logo.png`} alt="SEE-SAW Logo" className="h-6 w-auto object-contain opacity-80" />
           </div>
           <div className="w-32 h-20 bg-white rounded-lg shadow-md border border-seeSawLight flex items-center justify-center absolute top-4 left-0">
-            <img src="/seesaw-logo.png" alt="SEE-SAW Logo" className="h-6 w-auto object-contain" />
+            <img src={`${import.meta.env.BASE_URL}seesaw-logo.png`} alt="SEE-SAW Logo" className="h-6 w-auto object-contain" />
           </div>
           <div className="absolute -top-6 -left-4 bg-red-400 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg transform -rotate-12">
             MATCHING

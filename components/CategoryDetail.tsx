@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Category, ContentItem } from '../types';
 import { useContentsByCategory } from '../hooks/useContents';
+import { getImageUrl } from '../lib/imageUrl';
 
 interface CategoryDetailProps {
   onBack: () => void;
@@ -178,7 +179,7 @@ const CategoryDetail: React.FC<CategoryDetailProps> = ({
               {/* Image Section */}
               <div className="relative aspect-[16/9] overflow-hidden bg-gray-100">
                 <img 
-                  src={item.imageUrl} 
+                  src={getImageUrl(item.imageUrl)}
                   alt={item.title} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
                   referrerPolicy="no-referrer" 

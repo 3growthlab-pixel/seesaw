@@ -86,7 +86,7 @@ const App: React.FC = () => {
       {!isFullScreenPage && (
         <header className="sticky top-0 z-40 bg-seeSawCream/90 backdrop-blur-md px-5 py-4 flex justify-between items-center border-b border-seeSawLight">
           <div className="h-8 flex items-center cursor-pointer" onClick={() => navigate('/')}>
-            <img src="/seesaw-logo.png" alt="SEE-SAW Logo" className="h-10 w-auto object-contain" />
+            <img src={`${import.meta.env.BASE_URL}seesaw-logo.png`} alt="SEE-SAW Logo" className="h-10 w-auto object-contain" />
           </div>
           <div className="flex gap-4 items-center">
             <button

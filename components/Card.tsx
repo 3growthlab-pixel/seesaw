@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ContentItem } from '../types';
+import { getImageUrl } from '../lib/imageUrl';
 
 interface CardProps {
   item: ContentItem;
@@ -18,7 +19,7 @@ const Card: React.FC<CardProps> = ({ item, isWishlisted, onToggleWishlist, onCli
     >
       <div className="relative aspect-[3/4] bg-gray-50">
         <img
-          src={item.imageUrl}
+          src={getImageUrl(item.imageUrl)}
           alt={item.title}
           className="w-full h-full object-contain"
         />

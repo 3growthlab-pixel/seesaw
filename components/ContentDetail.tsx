@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ContentItem, Category } from '../types';
+import { getImageUrl } from '../lib/imageUrl';
 
 interface ContentDetailProps {
   item: ContentItem;
@@ -49,7 +50,7 @@ const ContentDetail: React.FC<ContentDetailProps> = ({
       {/* Hero Image with Parallax-like aesthetic */}
       <div className="relative w-full h-[55vh] bg-gray-900 animate-fadeIn">
         <img 
-          src={item.imageUrl} 
+          src={getImageUrl(item.imageUrl)}
           alt={item.title} 
           className="w-full h-full object-cover opacity-90"
           referrerPolicy="no-referrer"

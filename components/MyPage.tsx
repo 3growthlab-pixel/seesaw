@@ -2,6 +2,7 @@
 import React from 'react';
 import { AppState, ContentItem } from '../types';
 import { useContents } from '../hooks/useContents';
+import { getImageUrl } from '../lib/imageUrl';
 import LoginPrompt from './LoginPrompt';
 import { useNavigate } from 'react-router-dom';
 
@@ -77,7 +78,7 @@ const MyPage: React.FC<MyPageProps> = ({ appState, toggleWishlist, onLogout, not
                 className="relative aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden group cursor-pointer"
                 onClick={() => navigate(`/content/${item.id}`)}
               >
-                <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <img src={getImageUrl(item.imageUrl)} alt={item.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-3">
                   <p className="text-white text-[10px] font-bold">{item.category}</p>
                   <h4 className="text-white text-xs font-bold line-clamp-2">{item.title}</h4>
