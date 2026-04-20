@@ -1,0 +1,503 @@
+{
+  "REGIONS": [
+    "서울", "경기", "인천", "부산", "대구", "광주", "대전", "울산", "세종", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주"
+  ],
+  "MBTI_TYPES": [
+    "INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"
+  ],
+  "MOCK_CONTENTS": [
+    {
+      "id": "s_proj1",
+      "title": "[시소 프로젝트] 희생을 잇는 힘 : 독립 후손 캠페인",
+      "category": "프로젝트",
+      "description": "독립운동가 후손들을 기억하고 경제적, 사회적 지원을 모색하는 참여형 아카이브 캠페인입니다.",
+      "imageUrl": "https://picsum.photos/seed/seesaw1/800/600",
+      "detailImages": [
+        "https://picsum.photos/seed/seesaw1-1/800/600",
+        "https://picsum.photos/seed/seesaw1-2/800/600"
+      ],
+      "externalLink": "https://www.seesaw-society.org/letter_1",
+      "deadline": "진행중",
+      "tag": "독립운동가후손"
+    },
+    {
+      "id": "s_proj2",
+      "title": "[시소 프로젝트] 희생을 기억하며 : 참전용사 지원 아카이브",
+      "category": "프로젝트",
+      "description": "해외의 보훈 사례와 비교하며, 참전용사들을 위한 감정적 연대와 지속가능한 사회적 지원 체계를 구축합니다.",
+      "imageUrl": "https://picsum.photos/seed/seesaw2/800/600",
+      "externalLink": "https://www.seesaw-society.org/letter_2",
+      "tag": "보라보훈"
+    },
+    {
+      "id": "s_proj3",
+      "title": "🔥 [테스트] 나는 어떤 독립운동가의 후손일까?",
+      "category": "프로젝트",
+      "description": "1900년대 격동의 시대로 돌아가 나의 가치관을 확인하는 인터랙티브 스토리텔링 생존 테스트!",
+      "imageUrl": "https://picsum.photos/seed/seesaw3/800/600",
+      "externalLink": "https://www.seesaw-society.org/test",
+      "tag": "테스트"
+    },
+    {
+      "id": "p1",
+      "title": "[프로젝트] \"함께해야 가능한 연결\" 아이디어 공모전 2회",
+      "category": "프로젝트",
+      "description": "장애와 비장애인이 함께 만드는 미래, 사회적 밸런스를 실현하는 아이디어를 제안하는 공모전입니다. (분야: 기술 / 문화 / 교육)",
+      "imageUrl": "/image/공모전카드뉴스.png",
+      "deadline": "D-6",
+      "tag": "공모전",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "장애를 '도움의 대상'이 아닌, 다른 방식의 경험으로 바라봅니다.",
+          "body": "본 공모전은 비장애인도 함께 참여하고 싶어지는 자연스러운 연결 구조를 만드는 아이디어를 제안하는 공모전입니다. 단순한 기능 제안이 아닌, 사람과 사람을 연결하는 구조 설계를 지향합니다.",
+          "iconClass": "fa-solid fa-quote-left text-seeSawAmber"
+        },
+        {
+          "type": "highlight",
+          "subtitle": "■ 공모 주제",
+          "body": "장애와 비장애인이 함께 만드는 미래\n사회적 밸런스를 실현하는 아이디어 제안\n(분야: 기술 / 문화 / 교육)",
+          "iconClass": "fa-solid fa-lightbulb text-yellow-500"
+        },
+        {
+          "type": "checklist",
+          "subtitle": "■ 지원 자격 및 모집 기간",
+          "body": "서울 및 고양시 거주 20대 청년이라면 누구나 참여 가능합니다. 개인 또는 팀 참여 모두 환영합니다.",
+          "iconClass": "fa-solid fa-user-check text-blue-500",
+          "extraData": [
+            "지원 자격: 서울 및 고양시 거주 20대 청년 (개인 또는 팀 참여 가능)",
+            "모집 기간: 2026년 3월 1일(화) ~ 4월 24일(금)",
+            "지원 방법: 공식 홈페이지 접속 후 아이디어 직접 입력 및 제출"
+          ]
+        },
+        {
+          "type": "steps",
+          "subtitle": "■ 활동 내용",
+          "body": "기술, 문화, 교육 분야 중 하나를 선택하여 사회적 연결을 기반으로 한 구조 설계 아이디어를 기획하고 제출합니다.",
+          "iconClass": "fa-solid fa-pen-nib text-indigo-500",
+          "extraData": [
+            "기술 / 문화 / 교육 분야 중 선택하여 아이디어 기획",
+            "사회적 연결을 기반으로 한 구조 설계",
+            "제출된 아이디어를 기반으로 평가 진행"
+          ]
+        },
+        {
+          "type": "checklist",
+          "subtitle": "■ 활동 혜택",
+          "body": "우수 아이디어 참가자에게는 실질적인 커리어 성장 기회를 제공합니다.",
+          "iconClass": "fa-solid fa-gift text-red-500",
+          "extraData": [
+            "연계 기업 인턴십 기회 제공",
+            "대기업 출신 멘토링 지원",
+            "아이디어 실현 가능성 검토 및 네트워크 연결"
+          ]
+        },
+        {
+          "type": "checklist",
+          "subtitle": "■ 시상 내역",
+          "body": "우수한 아이디어를 제안한 팀에게 시상과 함께 다양한 기회를 제공합니다.",
+          "iconClass": "fa-solid fa-trophy text-yellow-500",
+          "extraData": [
+            "최우수상: 200만원 + 인턴십 기회 제공",
+            "우수상: 100만원 + 대기업 출신 멘토링",
+            "장려상: 대기업 출신 멘토링"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s1",
+      "title": "[세미나] 불안을 성장의 동력으로 바꾸는 마인드셋",
+      "category": "세미나",
+      "description": "우리 사회를 살아가는 청년들의 보편적 감정인 불안을 마주하고, 이를 자신만의 에너지로 전환하는 법을 배웁니다.",
+      "imageUrl": "https://picsum.photos/seed/semi1/800/600",
+      "deadline": "내일마감"
+    },
+    {
+      "id": "s2",
+      "title": "[세미나] 기후위기 시대 쓰레기 없는 삶 시작하기",
+      "category": "세미나",
+      "description": "제로웨이스트 활동가와 함께 일상 속 작은 용기를 내어보는 첫 걸음 세미나입니다.",
+      "imageUrl": "https://picsum.photos/seed/semi2/800/600",
+      "tag": "신규"
+    },
+    {
+      "id": "c1",
+      "title": "[캠페인] 내가 바꾸는 하루",
+      "category": "캠페인",
+      "description": "1일 1실천 챌린지! 텀블러 쓰기, 대중교통 등 작고 쉬운 실천을 SNS에 공유하며 연대의 힘을 경험하세요.",
+      "imageUrl": "/image/캠페인 1.png",
+      "deadline": "진행중",
+      "tag": "챌린지",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "세상을 바꾸는 건 거창한 일이 아닐지도 몰라요.",
+          "body": "바쁜 일상 속에서도 사회문제에 관심 있는 청년들이 많지만, 어디서부터 어떻게 시작해야 할지 막막할 때가 많죠. 아무리 작은 실천이라도 매일 모이면 결국 큰 변화의 물결을 만들어냅니다.",
+          "iconClass": "fa-solid fa-quote-left text-seeSawAmber"
+        },
+        {
+          "type": "progress",
+          "subtitle": "현재 캠페인 참여 현황",
+          "body": "우리의 작은 실천이 모인 숫자입니다. 함께 목표를 달성해 보아요!",
+          "iconClass": "fa-solid fa-fire text-orange-500",
+          "progressData": {
+            "current": 428,
+            "target": 1000,
+            "label": "챌린지 동참 목표 달성률"
+          }
+        },
+        {
+          "type": "highlight",
+          "subtitle": "⏰ 매일 이어가는 1일 1실천 Challenge!",
+          "body": "일상을 바꾸는 가장 쉽고 확실한 방법, 바로 ‘하루 한 가지 실천’입니다.\n환경, 인권, 노동 등 멀게만 느껴지던 다양한 사회 문제에 대해 지금 당장 우리가 할 수 있는 가장 의미 있는 행동들을 일상 속으로 초청합니다.",
+          "iconClass": "fa-solid fa-person-running text-red-500"
+        },
+        {
+          "type": "checklist",
+          "subtitle": "이런 실천들을 함께해요",
+          "body": "매일 자신이 실천한 것을 자유롭게 SNS에 공유하고 서로를 응원합니다. 모든 참여는 연결되고, 그 연결은 곧 세상을 바꾸는 작은 움직임이 됩니다.",
+          "iconClass": "fa-solid fa-list-check text-green-500",
+          "extraData": [
+            "오늘 하루 플라스틱 빨대 대신 개인 텀블러 사용하기",
+            "가까운 거리는 걷거나 따릉이, 대중교통 이용하기",
+            "하루 한 끼는 지구를 위한 건강한 채식 식단 도전하기",
+            "사용하지 않는 방의 불 끄고 멀티탭 전원 차단하기"
+          ]
+        },
+        {
+          "type": "faq",
+          "subtitle": "자주 묻는 질문",
+          "body": "캠페인 참여 전 궁금한 점을 확인해 보세요.",
+          "iconClass": "fa-solid fa-circle-question text-blue-500",
+          "faqData": [
+            {
+              "question": "매일매일 다르게 실천해도 되나요?",
+              "answer": "네, 물론입니다! 하루는 텀블러, 다음 날은 대중교통 등 상황에 맞게 자유롭게 목표를 정해 주시면 됩니다."
+            },
+            {
+              "question": "SNS 인증은 필수인가요?",
+              "answer": "필수는 아니지만, 함께 연대하는 힘을 기르기 위해 오픈카카오톡방이나 개인 인스타그램 스토리 공유를 적극 권장하고 있습니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "title": "[캠페인] 단체 대신 알려드립니다",
+      "category": "캠페인",
+      "description": "좋은 단체가 너무 많은데, 왜 안 알려졌을까? 청년이 사회단체의 활동을 모아 릴레이로 SNS에 알리는 홍보 캠페인.",
+      "imageUrl": "/image/캠페인 2.png",
+      "deadline": "진행중",
+      "tag": "홍보",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "좋은 활동을 해도 잘 알려지지 않습니다.",
+          "body": "사회 곳곳에서 목소리를 내기 어려운 훌륭한 단체들이 있습니다. 긍정적인 활동을 하고 있음에도 당장 눈앞의 자원과 시간이 부족해 사람들에게 알릴 여력이 없는 경우가 많죠. 그래서 저희 청년들이 펜을 들었습니다.",
+          "iconClass": "fa-solid fa-quote-left text-seeSawAmber"
+        },
+        {
+          "type": "progress",
+          "subtitle": "우리가 조명한 사회의 불빛",
+          "body": "지금까지 숨겨진 보석 같은 단체들을 발굴해 세상에 알렸습니다.",
+          "iconClass": "fa-solid fa-bullhorn text-orange-500",
+          "progressData": {
+            "current": 42,
+            "target": 100,
+            "label": "홍보 지원 단체 발굴 달성률"
+          }
+        },
+        {
+          "type": "steps",
+          "subtitle": "어떤 과정으로 홍보가 진행되나요?",
+          "body": "단체 발굴부터 인터뷰, 콘텐츠 기획, SNS 배포까지 전 과정을 청년의 시각에서 생동감 있게 재탄생시킵니다.",
+          "iconClass": "fa-solid fa-pen-nib text-indigo-500",
+          "extraData": [
+            "도움이 필요한 작은 사회단체 발굴 및 활동 취재",
+            "청년의 눈높이에 맞춘 간결한 카드뉴스 및 숏폼 기획",
+            "SNS 채널 릴레이 배포 및 응원 해시태그 대확산"
+          ]
+        },
+        {
+          "type": "highlight",
+          "subtitle": "청년들의 자발적 스토리텔링",
+          "body": "무겁고 딱딱한 보고서 형식보다는 청년들의 통통 튀는 기획 언어로 전합니다. 더 많은 대중이 쉽게 공감할 수 있도록 만드는 것이 이 릴레이 캠페인의 핵심입니다.",
+          "iconClass": "fa-regular fa-face-smile-wink text-blue-500"
+        },
+        {
+          "type": "checklist",
+          "subtitle": "이런 분들을 확성기로 모십니다!",
+          "body": "글쓰기나 디자인을 완벽히 할 줄 몰라도 괜찮습니다. 단체의 목소리를 전하고자 하는 따뜻한 마음만 있으면 충분합니다.",
+          "iconClass": "fa-solid fa-microphone-lines text-red-400",
+          "extraData": [
+            "사회 복지, 환경 문제 등에 관심이 많은 청년",
+            "카드뉴스 기획이나 SNS(인스타, 틱톡 등) 숏폼에 흥미를 느끼는 분",
+            "함께 아이디어를 나누며 협업의 가치를 배우고 싶은 분"
+          ]
+        },
+        {
+          "type": "faq",
+          "subtitle": "자주 묻는 질문",
+          "body": "홍보 확성기 캠페인에 참여하기 전 궁금한 점을 확인해 보세요.",
+          "iconClass": "fa-solid fa-circle-question text-green-500",
+          "faqData": [
+            {
+              "question": "지원할 수 있는 단체의 기준이 있나요?",
+              "answer": "상근 인력이 5인 미만이거나 홍보 예산이 책정되어 있지 않은 공익 목적의 소규모 단체를 최우선으로 지원합니다."
+            },
+            {
+              "question": "저는 글솜씨가 없는데 참여 가능한가요?",
+              "answer": "전혀 문제없습니다! 아이디어를 함께 내고, 만들어진 콘텐츠를 자신의 SNS에 공유(리포스팅)하는 것만으로도 아주 훌륭한 '확성기' 역할이 됩니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "title": "[캠페인] 청년 ON Project",
+      "category": "캠페인",
+      "description": "혼자서는 어렵지만, 함께하면 할 수 있어. 청년과 사회단체가 함께 만드는 오프라인 소모임 캠페인 지원 사업.",
+      "imageUrl": "/image/캠페인 3.png",
+      "deadline": "진행중",
+      "tag": "소모임",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "진정한 온기는 만남 속에서 피어납니다.",
+          "body": "동시대를 살아가는 청년들이 평소 하고 싶었던 이야기, 그리고 나누고 싶었던 깊은 고민들. 온라인의 짧은 글을 넘어 오프라인 공간에서 진짜 대화를 나눌 수 있는 따뜻한 기회를 마련했습니다.",
+          "iconClass": "fa-solid fa-users text-blue-400"
+        },
+        {
+          "type": "progress",
+          "subtitle": "함께 켜진 온기의 스위치",
+          "body": "올해 우리가 직접 기획하고 함께 모인 소모임들의 숫자입니다.",
+          "iconClass": "fa-solid fa-face-laugh-squint text-orange-500",
+          "progressData": {
+            "current": 25,
+            "target": 50,
+            "label": "올해 소모임 개설 달성률"
+          }
+        },
+        {
+          "type": "checklist",
+          "subtitle": "소모임 무한 지원 프로젝트",
+          "body": "여러분의 빛나는 기획을 현실로 만들어드립니다. 주저하지 말고 아이디어를 제안해 주세요.",
+          "iconClass": "fa-solid fa-gift text-red-500",
+          "extraData": [
+            "관심사를 나눌 수 있는 쾌적한 오프라인 모임 공간 대여",
+            "다과비 및 게스트 초청 등 소모임 예산 최대 30만원 지원",
+            "어려움이 생길 때마다 든든하게 도와주는 전담 매니저 매칭"
+          ]
+        },
+        {
+          "type": "highlight",
+          "subtitle": "어떤 활동이든 환영합니다!",
+          "body": "직접 북토크를 열거나, 영화 상영회 후 토론을 진행하거나, 다 같이 도심 러닝과 플로깅을 기획해 보셔도 좋습니다. 서로 나누는 대화 속에서 사람과 사람이 단단하게 연결되는 놀라운 순간을 함께해 보세요.",
+          "iconClass": "fa-solid fa-link text-indigo-400"
+        },
+        {
+          "type": "steps",
+          "subtitle": "소모임 신청은 이렇게 진행돼요",
+          "body": "막연한 생각만 가져오셔도 됩니다. 매니저와 함께 구체화해보아요.",
+          "iconClass": "fa-solid fa-map-location-dot text-green-500",
+          "extraData": [
+            "하단의 신청하기 버튼을 눌러 하고 싶은 모임의 주제를 간단히 제출합니다.",
+            "매니저와 함께 기획안을 구체화하고 필요한 예산과 공간을 배정받습니다.",
+            "플랫폼을 통해 모임원들을 모집하고, 첫 워크숍이나 오프라인 모임을 성공적으로 진행합니다."
+          ]
+        },
+        {
+          "type": "faq",
+          "subtitle": "자주 묻는 질문",
+          "body": "소모임을 개설하거나 참여하기 전에 참고해주세요.",
+          "iconClass": "fa-solid fa-circle-question text-amber-500",
+          "faqData": [
+            {
+              "question": "1회성 모임도 지원받을 수 있나요?",
+              "answer": "네, 가능합니다! 하지만 지속 가능한 네트워킹을 지향하기 때문에 3회 이상의 연속성을 띠는 정기모임의 경우 우선 배정의 혜택을 드리고 있습니다."
+            },
+            {
+              "question": "최소 모집 인원 기준이 있나요?",
+              "answer": "본인(호스트)을 제외하고 최소 3인 이상의 팀원이 모였을 때부터 정식 소모임 지원 프로세스가 가동됩니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "title": "[캠페인] 1일 활동가 체험 캠페인",
+      "category": "캠페인",
+      "description": "단 하루 동안 사회단체의 1일 활동가가 되어 세상을 바꾸는 작은 실천을 몸소 경험해보세요.",
+      "imageUrl": "https://i.ifh.cc/NV7MrG.jpg",
+      "deadline": "진행중",
+      "tag": "체험",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "나도 활동가처럼 살아보고 싶은데... 가능할까?",
+          "body": "참여할 기회가 적거나 어렵게 느껴졌던 청년들을 위해 준비했어요. 사회단체 활동, 더 이상 막연하고 멀게만 느끼지 않아도 됩니다.",
+          "iconClass": "fa-solid fa-person-hiking"
+        },
+        {
+          "type": "highlight",
+          "subtitle": "☀️단 하루, 세상을 바꾸는 쪽으로 걸어보기",
+          "body": "환경, 인권, 청소년, 노동 등 다양한 분야의 사회단체에서 1일 활동가로 참여해보세요. 그 뜻깊은 하루가, 인생의 방향을 긍정적으로 바꾸는 작은 시작이 될 수도 있습니다.",
+          "iconClass": "fa-solid fa-sun"
+        },
+        {
+          "type": "steps",
+          "subtitle": "이런 멋진 경험들을 함께 합니다!",
+          "body": "단 하루 동안의 깊이 있는 봉사 이상의 체험, 멘토 이상의 만남을 통해 청년과 단체가 가까워집니다.",
+          "iconClass": "fa-solid fa-shoe-prints",
+          "extraData": [
+            "다양한 분야 중 관심 있는 사회단체 선택 및 1일 체험 매칭 신청",
+            "현장에서 단체 활동가와 함께 직접 업무를 돕고 의미 있는 실천 경험",
+            "체험 후 내가 가진 가치와 사회문제가 어떻게 만나는지 회고 네트워킹 진행"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "title": "[캠페인] 단체 한입 소개소",
+      "category": "캠페인",
+      "description": "어렵게 느껴지던 사회단체 정보를 쉽고 간결하게 ‘한입 크기’로 정리해 소개하는 온라인 전시 캠페인.",
+      "imageUrl": "https://i.ifh.cc/mz9QYf.jpg",
+      "deadline": "진행중",
+      "tag": "전시",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "사회단체를 알고 싶은데, 너무 어렵고 복잡해요.",
+          "body": "무수한 단체들 중 나에게 맞는 곳을 찾기 막막하셨나요? 진입장벽을 획기적으로 낮추기 위해 직관적이고 유쾌한 '한입 크기' 전시를 제안합니다.",
+          "iconClass": "fa-solid fa-cookie-bite"
+        },
+        {
+          "type": "highlight",
+          "subtitle": "🏛️알기 쉬운 하이브리드 사회단체 전시회",
+          "body": "아주 짧은 숏폼 영상, 재치 있는 짤방, 명료한 한 줄 설명으로 단체의 핵심 활동과 성격을 한입에 알아볼 수 있도록 보여드립니다. 딱딱하고 어려운 정보를 넘어서 누구나 재밌게 접근할 수 있습니다.",
+          "iconClass": "fa-solid fa-building-columns"
+        },
+        {
+          "type": "checklist",
+          "subtitle": "바로 여러분들을 위한 진입로입니다",
+          "body": "사회단체를 쉽게 이해하고, 스스로와의 따뜻한 연결고리를 찾길 원하는 청년들을 적극 환영합니다.",
+          "iconClass": "fa-solid fa-magnifying-glass",
+          "extraData": [
+            "평소 공익활동에 관심은 많으나 어떻게 처음 접해야 할지 막막했던 분",
+            "글씨 빽빽한 보고서 대신 흥미로운 숏폼과 시각 자료로 정보를 얻고 싶은 분",
+            "자신의 신념과 가치관에 꼭 맞아떨어지는 멋진 활동 단체를 발견하고 싶은 분"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "title": "[캠페인] 청년 공익제안 Challenge",
+      "category": "캠페인",
+      "description": "동네와 사회의 문제를 제안하면 해결하려는 단체와 매칭됩니다. 당신의 제안으로 변화를 이끌어보세요.",
+      "imageUrl": "https://i.ifh.cc/aDkn0X.jpg",
+      "deadline": "진행중",
+      "tag": "공익제안",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "문제가 보이는데... 왜 아무도 나서지 않을까?",
+          "body": "우리 동네, 우리 사회의 불편하고 시급한 문제를 그저 가만히 보고만 있을 수 없던 깨어있는 청년들을 위해 이 캠페인이 기획되었습니다.",
+          "iconClass": "fa-solid fa-lightbulb"
+        },
+        {
+          "type": "highlight",
+          "subtitle": "😀내가 제안하고, 단체와 함께 바꾼다",
+          "body": "청년이 지역과 사회 문제를 직접 발굴해 제안하면, 그 영역의 문제를 해결하고자 하는 전문 사회단체와 1:1로 매칭됩니다. 속으로만 생각하던 아쉬움이 당신의 손에서 훌륭한 기획으로 탄생합니다.",
+          "iconClass": "fa-regular fa-face-smile"
+        },
+        {
+          "type": "steps",
+          "subtitle": "청년 공익 실험의 구체적 여정",
+          "body": "단순 제보자에 머무는 것이 아니라, 아이디어의 자랑스러운 공동 실행자가 되어 변화를 실현해보세요.",
+          "iconClass": "fa-solid fa-seedling",
+          "extraData": [
+            "해결이 시급하다고 느끼는 우리 주변의 작지만 의미 있는 사회 문제 제안서 작성",
+            "해당 분야에서 실제로 활동하는 든든한 사회단체 매칭 및 실행 플랜 수립",
+            "함께 계획한 프로젝트를 행동으로 직접 옮겨 사회가 조금씩 변화하는 과정을 확인하기"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "title": "[캠페인] 익명 편지 프로젝트",
+      "category": "캠페인",
+      "description": "솔직하게 마음을 전할 곳 없는 청년들을 위해, 말하지 못했던 감정과 고마움을 익명으로 기록하고 나눕니다.",
+      "imageUrl": "https://i.ifh.cc/MPZhZ3.jpg",
+      "deadline": "4월 오픈예정",
+      "tag": "프로젝트",
+      "detailedSections": [
+        {
+          "type": "quote",
+          "subtitle": "관계는 많지만 정작 외롭습니다.",
+          "body": "그리고 말하지 못한 말들은 마음 속에 흩어져 있습니다. 사람과 사람 사이에 잃어버린 감정의 온기를 회복하기 위해, 미처 전하지 못했던 말들을 모아보는 프로젝트입니다.",
+          "iconClass": "fa-solid fa-envelope-open-text"
+        },
+        {
+          "type": "highlight",
+          "subtitle": "💌 말하지 못했던 그 마음을, 익명으로 전합니다",
+          "body": "오프라인 공간에 마련된 우체통에서 누군가를 향한 고마움, 미안함, 그리움, 무한한 지지와 응원의 감정을 남겨주세요. 그 누구의 이름도 적혀 있지 않지만, 그 안에 꾹꾹 눌러 담긴 감정만큼은 진실한 순간이 됩니다.",
+          "iconClass": "fa-solid fa-heart"
+        },
+        {
+          "type": "faq",
+          "subtitle": "시소의 특별한 공익 철학",
+          "body": "우리는 왜 정보가 아닌 마음을 나눌까요?",
+          "iconClass": "fa-solid fa-circle-question",
+          "faqData": [
+            {
+              "question": "왜 서로 편지를 남기는 프로젝트를 기획했나요?",
+              "answer": "우리 사회는 많은 문제를 인지하고 있지만, 정작 서로에게 온기를 건네는 일에는 갈수록 인색해지고 있기 때문입니다. 우리는 '정보'가 아닌 '감정'의 연결을 통해 잃어버렸던 사회적 감각을 회복하고자 합니다."
+            },
+            {
+              "question": "익명으로 적으면 대상에게 전달이 되나요?",
+              "answer": "수신자에게 보내기 위한 목적보다는, 익명이 보장된 안전한 공간에서 청년들 각자의 억눌린 감정과 감성을 솔직하게 표출하고, 그것들이 모인 전시를 통해 집단적인 위로와 순환을 이끌어내려는 취지입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "i1",
+      "title": "[인터뷰] \"퇴사하고 목수가 된 청년, 톱질에서 찾은 내 삶의 리듬\"",
+      "category": "인터뷰",
+      "description": "잘 보이지 않던 누군가의 삶의 이야기를 함께 듣고 나누며 일상을 지탱하는 공감의 반경을 넓혀갑니다.",
+      "imageUrl": "https://picsum.photos/seed/inter1/800/600",
+      "tag": "스토리"
+    },
+    {
+      "id": "i2",
+      "title": "[인터뷰] 어쩌다 로컬 크리에이터가 된 어느 프리랜서의 이야기",
+      "category": "인터뷰",
+      "description": "자신만의 속도와 온도로 일상을 다듬어가는 로컬 청년들의 이야기 아카이브.",
+      "imageUrl": "https://picsum.photos/seed/inter2/800/600",
+      "tag": "단독"
+    },
+    {
+      "id": "e1",
+      "title": "[에세이] 관계의 피로 속에서 고요함을 찾는 법",
+      "category": "에세이/칼럼",
+      "description": "평범한 마음의 조각들을 언어로 매듭지어 기록합니다. 서로의 다름을 인정하며 발견한 내면의 고요.",
+      "imageUrl": "https://picsum.photos/seed/essay1/800/600"
+    },
+    {
+      "id": "e2",
+      "title": "[에세이] 매일 10분, 아침 채집기가 가져온 변화",
+      "category": "에세이/칼럼",
+      "description": "바쁜 출근길 속, 스쳐 지나가는 일상의 풍경들을 수집하고 글로 엮어낸 따뜻한 회고록.",
+      "imageUrl": "https://picsum.photos/seed/essay2/800/600"
+    }
+  ]
+}

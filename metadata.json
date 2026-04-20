@@ -1,0 +1,7 @@
+{
+  "name": "MOA",
+  "description": "A personalized life matching platform for Korean youth that recommends housing, employment, and government policies based on user profile and image analysis using a shopping app-inspired UI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

@@ -1,0 +1,53 @@
+
+import React from 'react';
+import { ContentItem } from '../types';
+
+interface CardProps {
+  item: ContentItem;
+  isWishlisted: boolean;
+  onToggleWishlist: (id: string) => void;
+  onClick?: () => void;
+  variant?: 'large' | 'small';
+}
+
+const Card: React.FC<CardProps> = ({ item, isWishlisted, onToggleWishlist, onClick, variant = 'large' }) => {
+  return (
+    <div 
+      onClick={onClick}
+      className={`relative flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer ${variant === 'large' ? 'w-44' : 'w-36'}`}
+    >
+      <div className="relative aspect-[3/4] bg-gray-50">
+        <img
+          src={item.imageUrl}
+          alt={item.title}
+          className="w-full h-full object-contain"
+        />
+        {item.tag && (
+          <div className="absolute bottom-2 left-2 bg-seeSawAmber text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+            {item.tag}
+          </div>
+        )}
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleWishlist(item.id);
+          }}
+          className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-full"
+        >
+          <i className={`fa-${isWishlisted ? 'solid' : 'regular'} fa-heart text-seeSawAmber text-sm`}></i>
+        </button>
+      </div>
+      <div className="p-3">
+        <p className="text-[10px] text-gray-400 font-medium mb-1">{item.category}</p>
+        <h3 className="text-xs font-bold leading-relaxed line-clamp-2">{item.title}</h3>
+        {item.deadline && (
+          <div className="mt-2">
+            <span className="text-xs font-bold text-red-500">{item.deadline}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Card;

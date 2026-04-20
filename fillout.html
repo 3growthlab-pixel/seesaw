@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>내가 조선의 왕이었다면?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8CC7A;
+  --gold-dark: #8B6914;
+  --ink: #120C06;
+  --paper: #F5EDD8;
+  --paper-dark: #E8D9B5;
+  --red-deep: #6B1414;
+  --stone: #4A3728;
+  --wood: #5C3A1E;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; height:100%;
+  font-family:'Noto Sans KR', sans-serif;
+  background:#000;
+  overflow:hidden;
+}
+
+/* SCREENS */
+.screen {
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.9s ease;
+  overflow:hidden;
+}
+.screen.active { opacity:1; pointer-events:all; }
+.screen.scrollable { overflow-y:auto; justify-content:flex-start; }
+
+/* GRAIN */
+body::after {
+  content:''; position:fixed; inset:0; z-index:9999;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.035;
+}
+
+/* ══ SCREEN 1: INTRO ══ */
+#s-intro { background:#000; z-index:20; }
+#ceilingCanvas { position:absolute; inset:0; width:100%; height:100%; }
+
+.eyelid { position:absolute; left:0; right:0; background:#000; z-index:5; }
+#lid-top { top:0; }
+#lid-bot { bottom:0; }
+
+#eyeOverlay, #outroOverlay {
+  position:absolute; inset:0; width:100%; height:100%;
+  z-index:5; pointer-events:none;
+}
+
+.skip-btn {
+  position:absolute; top:20px; right:20px; z-index:10;
+  background:transparent;
+  border:1px solid rgba(201,168,76,0.3);
+  color:rgba(245,237,216,0.5);
+  font-size:11px; letter-spacing:0.2em;
+  padding:6px 14px; border-radius:20px;
+  cursor:pointer; transition:all 0.3s;
+}
+.skip-btn:hover { color:var(--gold-light); border-color:var(--gold); }
+
+.intro-caption {
+  position:absolute; bottom:12%; left:0; right:0;
+  text-align:center; z-index:6;
+  font-family:'Noto Serif KR', serif;
+  color:var(--paper);
+  font-size:clamp(13px,3.5vw,18px);
+  letter-spacing:0.35em;
+  text-shadow:0 0 40px rgba(201,168,76,0.9);
+  opacity:0; transition:opacity 1.2s ease;
+}
+.intro-caption.show { opacity:1; }
+
+/* ══ SCREEN 2: STORY ══ */
+#s-story { background:var(--ink); z-index:19; overflow-y:auto; }
+
+.story-bg-deco {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse at 15% 85%, rgba(107,20,20,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.07) 0%, transparent 50%);
+}
+
+.story-wrap {
+  position:relative; z-index:1;
+  max-width:580px; width:90%;
+  padding:60px 20px 80px;
+  display:flex; flex-direction:column;
+  align-items:center; gap:0;
+}
+
+.s-line {
+  font-family:'Noto Serif KR', serif;
+  color:var(--paper); text-align:center; width:100%;
+  opacity:0; transform:translateY(14px);
+  transition:opacity 0.65s ease, transform 0.65s ease;
+}
+.s-line.vis { opacity:1; transform:none; }
+
+.s-lg  { font-size:clamp(16px,4.5vw,22px); font-weight:700; line-height:1.7; margin-bottom:6px; }
+.s-md  { font-size:clamp(13px,3.5vw,16px); line-height:1.8; color:rgba(245,237,216,0.85); margin-bottom:4px; }
+.s-sm  { font-size:clamp(12px,3vw,14px); font-weight:300; line-height:1.8; color:rgba(245,237,216,0.6); margin-bottom:2px; }
+.s-gold{ color:var(--gold-light); font-weight:700; }
+.s-gap { height:22px; }
+.s-gapl{ height:44px; }
+
+.s-divider {
+  width:70px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:24px auto; opacity:0; transition:opacity 0.65s;
+}
+.s-divider.vis { opacity:1; }
+
+.cta-wrap {
+  margin-top:52px;
+  opacity:0; transform:translateY(18px);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+}
+.cta-wrap.vis { opacity:1; transform:none; }
+
+.cta-btn {
+  font-family:'Noto Serif KR', serif;
+  font-size:clamp(14px,3.8vw,18px); font-weight:700;
+  letter-spacing:0.15em; color:var(--ink);
+  background:linear-gradient(135deg, #8B6914, #C9A84C, #E8CC7A);
+  border:none; cursor:pointer;
+  padding:17px 44px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  position:relative; overflow:hidden;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.cta-btn::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.25),transparent 70%);
+  transform:translateX(-100%); transition:transform 0.55s;
+}
+.cta-btn:hover::after { transform:translateX(100%); }
+.cta-btn:hover { transform:scale(1.04); box-shadow:0 0 36px rgba(201,168,76,0.45); }
+
+/* ══ SCREEN 3: QUIZ ══ */
+#s-quiz { background:var(--paper); z-index:18; justify-content:flex-start; overflow-y:auto; }
+
+.quiz-shell { width:100%; max-width:640px; min-height:100vh; display:flex; flex-direction:column; }
+
+.prog-track { position:sticky; top:0; z-index:5; width:100%; height:5px; background:rgba(74,55,40,0.12); }
+.prog-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); transition:width 0.55s ease; width:0%; }
+
+.q-slide { opacity:0; transform:translateX(28px); transition:opacity 0.38s ease, transform 0.38s ease; display:flex; flex-direction:column; flex:1; }
+.q-slide.in  { opacity:1; transform:none; }
+.q-slide.out { opacity:0; transform:translateX(-28px); }
+
+.q-top-bar { display:flex; align-items:center; gap:10px; padding:18px 22px 0; }
+.q-badge { font-family:'Noto Serif KR',serif; font-size:11px; letter-spacing:0.22em; color:var(--gold-dark); border:1px solid rgba(139,105,20,0.5); padding:4px 10px; }
+.q-of { font-size:11px; color:rgba(74,55,40,0.45); letter-spacing:0.1em; }
+
+.q-art { width:100%; height:clamp(190px,42vw,300px); position:relative; overflow:hidden; background:var(--ink); flex-shrink:0; }
+.q-art canvas { width:100%; height:100%; display:block; }
+
+.q-body { padding:20px 22px 14px; }
+.q-sit { font-size:11px; letter-spacing:0.2em; color:var(--gold-dark); font-weight:600; margin-bottom:10px; }
+.q-main { font-family:'Noto Serif KR',serif; font-size:clamp(17px,4.8vw,23px); font-weight:800; color:var(--ink); line-height:1.6; margin-bottom:6px; }
+.q-sub-text { font-size:clamp(12px,3vw,14px); color:rgba(74,55,40,0.65); line-height:1.7; margin-bottom:20px; }
+
+.q-opts { display:flex; flex-direction:column; gap:11px; padding:0 22px 44px; }
+.opt { background:#fff; border:1.5px solid rgba(201,168,76,0.25); padding:17px 18px; display:flex; align-items:flex-start; gap:13px; cursor:pointer; text-align:left; position:relative; overflow:hidden; transition:border-color 0.22s, background 0.22s, transform 0.22s; }
+.opt::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold); transform:scaleY(0); transform-origin:bottom; transition:transform 0.22s; }
+.opt:hover { border-color:var(--gold); background:rgba(201,168,76,0.07); transform:translateX(3px); }
+.opt:hover::before { transform:scaleY(1); }
+.opt.sel { border-color:var(--gold); background:rgba(201,168,76,0.13); }
+.opt.sel::before { transform:scaleY(1); }
+.opt-lbl { font-family:'Noto Serif KR',serif; font-size:clamp(13px,3.2vw,15px); font-weight:800; color:var(--gold-dark); flex-shrink:0; margin-top:1px; }
+.opt-txt { font-size:clamp(13px,3.2vw,15px); color:var(--stone); line-height:1.65; }
+
+/* ══ SCREEN 4: OUTRO VID ══ */
+#s-outro { background:#000; z-index:17; }
+#blurCanvas { position:absolute; inset:0; width:100%; height:100%; }
+.outro-eyelid { position:absolute; left:0; right:0; background:#000; z-index:5; }
+#olid-top { top:0; }
+#olid-bot { bottom:0; }
+.outro-caption { position:absolute; bottom:12%; left:0; right:0; text-align:center; z-index:6; font-family:'Noto Serif KR',serif; color:var(--paper); font-size:clamp(13px,3.5vw,18px); letter-spacing:0.35em; text-shadow:0 0 40px rgba(201,168,76,0.9); opacity:0; transition:opacity 1s; }
+.outro-caption.show { opacity:1; }
+
+/* ══ SCREEN 5: OUTRO TEXT ══ */
+#s-outro-text { background:var(--ink); z-index:16; overflow-y:auto; }
+
+/* ══ SCREEN 6: RESULT ══ */
+#s-result { background:var(--paper); z-index:15; justify-content:flex-start; overflow-y:auto; }
+
+.result-shell { width:100%; max-width:640px; min-height:100vh; display:flex; flex-direction:column; }
+
+.r-hero { width:100%; height:clamp(260px,55vw,380px); position:relative; overflow:hidden; flex-shrink:0; }
+.r-hero canvas { width:100%; height:100%; display:block; }
+.r-hero-fade { position:absolute; inset:0; background:linear-gradient(to top, var(--paper) 0%, transparent 55%); }
+.r-crown { position:absolute; bottom:18px; left:22px; font-size:clamp(26px,6.5vw,38px); }
+
+.r-body { padding:4px 22px 70px; display:flex; flex-direction:column; gap:18px; }
+.r-overtag { font-size:11px; letter-spacing:0.25em; color:var(--gold-dark); font-weight:600; padding-top:6px; }
+.r-name { font-family:'Noto Serif KR',serif; font-size:clamp(19px,5.2vw,27px); font-weight:900; color:var(--ink); line-height:1.3; }
+.r-king { display:flex; align-items:center; gap:10px; font-size:clamp(13px,3.5vw,16px); color:var(--gold-dark); font-weight:600; margin-top:5px; }
+.r-king::before { content:''; display:inline-block; width:28px; height:1px; background:var(--gold); }
+.r-line { width:100%; height:1px; background:linear-gradient(90deg, var(--gold) 0%, transparent 70%); }
+
+.r-word { text-align:center; padding:4px 0; }
+.r-word-chinese { font-family:'Noto Serif KR',serif; font-size:clamp(32px,9vw,54px); color:var(--gold-dark); opacity:0.2; letter-spacing:0.2em; line-height:1; margin-bottom:5px; }
+.r-word-kor { font-size:clamp(12px,3vw,14px); color:rgba(74,55,40,0.5); letter-spacing:0.15em; }
+
+.r-quote { border-left:3px solid var(--gold); padding:14px 18px; background:rgba(201,168,76,0.07); font-family:'Noto Serif KR',serif; font-size:clamp(13px,3.3vw,15px); font-style:italic; color:var(--stone); line-height:1.75; }
+
+.r-desc { font-size:clamp(13px,3.3vw,15px); color:var(--stone); line-height:1.9; }
+.r-desc b { color:var(--ink); font-weight:700; }
+
+.sw-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sw-card { padding:14px 16px; border:1px solid rgba(201,168,76,0.2); }
+.sw-card.str { background:#fff; }
+.sw-card.wkn { background:rgba(107,20,20,0.05); border-color:rgba(107,20,20,0.15); }
+.sw-label { font-size:10px; letter-spacing:0.2em; font-weight:700; margin-bottom:8px; }
+.sw-card.str .sw-label { color:var(--gold-dark); }
+.sw-card.wkn .sw-label { color:var(--red-deep); }
+.sw-item { font-size:clamp(11px,2.8vw,13px); color:var(--stone); line-height:1.6; padding:3px 0; display:flex; align-items:flex-start; gap:6px; }
+.sw-item::before { flex-shrink:0; margin-top:2px; }
+.sw-card.str .sw-item::before { content:'✔'; color:var(--gold-dark); font-size:10px; }
+.sw-card.wkn .sw-item::before { content:'△'; color:var(--red-deep); font-size:10px; }
+
+.r-mbti { background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); padding:15px 18px; display:flex; align-items:center; gap:14px; }
+.r-mbti-l { font-size:10px; letter-spacing:0.22em; color:var(--gold-dark); font-weight:700; flex-shrink:0; }
+.r-mbti-v { font-family:'Noto Serif KR',serif; font-size:clamp(15px,3.8vw,18px); font-weight:800; color:var(--ink); }
+
+.r-tip { background:var(--ink); padding:18px 20px; }
+.r-tip-label { font-size:10px; letter-spacing:0.25em; color:var(--gold); font-weight:700; margin-bottom:10px; }
+.r-tip-text { font-size:clamp(12px,3vw,14px); color:rgba(245,237,216,0.8); line-height:1.8; }
+
+.retry-btn { background:var(--ink); color:var(--gold-light); font-family:'Noto Serif KR',serif; font-size:clamp(13px,3.3vw,15px); font-weight:700; letter-spacing:0.15em; padding:16px 36px; border:none; cursor:pointer; align-self:center; margin-top:8px; clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:background 0.3s, transform 0.3s; }
+.retry-btn:hover { background:var(--stone); transform:scale(1.04); }
+
+/* ══ LANDING ══ */
+#s-landing { background:var(--ink); z-index:14; overflow-y:auto; justify-content:flex-start; }
+#s-dbform  { background:var(--ink); z-index:13; overflow-y:auto; justify-content:flex-start; }
+
+.land-wrap, .form-wrap {
+  width:100%; max-width:540px; margin:0 auto;
+  padding:0 0 80px;
+}
+
+/* 랜딩 — 훅 */
+.land-hook {
+  min-height:100svh;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; padding:60px 28px 72px;
+  position:relative;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.09) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 10%, rgba(107,20,20,0.12) 0%, transparent 50%);
+}
+.land-logo, .form-logo {
+  margin-bottom:36px;
+  opacity:0; animation:lFadeUp 0.7s 0.2s ease forwards;
+}
+.land-logo img, .form-logo img {
+  height:40px; width:auto; object-contain:contain;
+}
+.land-hook-pre {
+  font-size:clamp(12px,3vw,14px); letter-spacing:0.18em;
+  color:rgba(245,237,216,0.45); margin-bottom:14px;
+  opacity:0; animation:lFadeUp 0.7s 0.35s ease forwards;
+}
+.land-hook-title {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(22px,6vw,34px); font-weight:700;
+  color:var(--paper); line-height:1.45; margin-bottom:10px;
+  opacity:0; animation:lFadeUp 0.7s 0.45s ease forwards;
+}
+.land-hook-title em { font-style:normal; color:var(--gold-light); }
+.land-hook-sub {
+  font-size:clamp(13px,3.3vw,15px); color:rgba(245,237,216,0.55);
+  line-height:1.75; margin-bottom:40px;
+  opacity:0; animation:lFadeUp 0.7s 0.55s ease forwards;
+}
+.land-cta-primary {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(14px,3.8vw,17px); font-weight:700;
+  letter-spacing:0.12em; color:var(--ink);
+  background:linear-gradient(135deg,#8B6914,#C9A84C,#E8CC7A);
+  border:none; cursor:pointer;
+  padding:18px 42px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  position:relative; overflow:hidden;
+  transition:transform 0.25s, box-shadow 0.25s;
+  opacity:0; animation:lFadeUp 0.7s 0.65s ease forwards;
+}
+.land-cta-primary::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.28),transparent 70%);
+  transform:translateX(-100%); transition:transform 0.55s;
+}
+.land-cta-primary:hover::after { transform:translateX(100%); }
+.land-cta-primary:hover { transform:scale(1.04); box-shadow:0 0 36px rgba(201,168,76,0.4); }
+.land-hook-note {
+  margin-top:14px; font-size:11px; letter-spacing:0.12em;
+  color:rgba(245,237,216,0.3);
+  opacity:0; animation:lFadeUp 0.7s 0.75s ease forwards;
+}
+@keyframes lFadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* 랜딩 — 섹션 공통 */
+.land-section {
+  padding:64px 28px;
+  border-top:1px solid rgba(201,168,76,0.1);
+}
+.land-tag {
+  font-size:10px; letter-spacing:0.25em; font-weight:700;
+  color:var(--gold); margin-bottom:14px;
+}
+.land-title {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(19px,5vw,26px); font-weight:700;
+  color:var(--paper); line-height:1.45; margin-bottom:8px;
+}
+.land-desc {
+  font-size:clamp(13px,3.2vw,15px); color:rgba(245,237,216,0.5);
+  line-height:1.8; margin-bottom:28px;
+}
+
+/* 카드 그리드 */
+.land-cards {
+  display:flex; flex-direction:column; gap:12px; margin-bottom:28px;
+}
+.land-card {
+  background:rgba(255,255,255,0.04);
+  border:1.5px solid rgba(201,168,76,0.15);
+  border-radius:2px; padding:18px 20px;
+  display:flex; align-items:flex-start; gap:16px;
+  transition:border-color 0.2s, background 0.2s;
+}
+.land-card:hover {
+  border-color:rgba(201,168,76,0.4);
+  background:rgba(201,168,76,0.06);
+}
+.land-card-icon {
+  width:42px; height:42px; flex-shrink:0;
+  background:rgba(201,168,76,0.1);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; border-radius:2px;
+}
+.land-card-title {
+  font-size:14px; font-weight:700; color:var(--paper); margin-bottom:4px;
+}
+.land-card-desc { font-size:12px; color:rgba(245,237,216,0.45); line-height:1.6; }
+
+.land-stat-row {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.25);
+  padding:14px 18px;
+}
+.land-stat-num {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(20px,5vw,26px); font-weight:700; color:var(--gold-light);
+  flex-shrink:0;
+}
+.land-stat-label { font-size:12px; color:rgba(245,237,216,0.5); line-height:1.55; }
+
+/* 후기 */
+.land-reviews { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.land-review {
+  background:rgba(255,255,255,0.03);
+  border-left:3px solid rgba(201,168,76,0.4);
+  padding:16px 18px;
+}
+.land-review-text {
+  font-family:'Noto Serif KR',serif; font-style:italic;
+  font-size:clamp(13px,3.2vw,15px); color:rgba(245,237,216,0.8);
+  line-height:1.7; margin-bottom:8px;
+}
+.land-review-who { font-size:11px; letter-spacing:0.1em; color:rgba(201,168,76,0.55); }
+
+/* 최종 CTA 섹션 */
+.land-final {
+  padding:56px 28px 72px; text-align:center;
+  border-top:1px solid rgba(201,168,76,0.1);
+  background:radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.07) 0%, transparent 65%);
+}
+.land-final-title {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(18px,5vw,24px); font-weight:700;
+  color:var(--paper); line-height:1.5; margin-bottom:8px;
+}
+.land-final-sub { font-size:13px; color:rgba(245,237,216,0.4); margin-bottom:32px; line-height:1.7; }
+
+/* ══ DB FORM ══ */
+.form-inner-wrap {
+  min-height:100svh;
+  display:flex; flex-direction:column;
+  padding:60px 28px 80px;
+}
+.form-logo {
+  font-family:'Noto Serif KR',serif; font-size:13px; font-weight:700;
+  letter-spacing:0.35em; color:var(--gold);
+  border:1px solid rgba(201,168,76,0.35); padding:6px 18px; border-radius:2px;
+  align-self:flex-start; margin-bottom:40px;
+}
+.form-title {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(20px,5.5vw,28px); font-weight:700;
+  color:var(--paper); line-height:1.45; margin-bottom:6px;
+}
+.form-sub { font-size:13px; color:rgba(245,237,216,0.45); line-height:1.7; margin-bottom:36px; }
+
+.db-form { display:flex; flex-direction:column; gap:0; }
+.db-group { margin-bottom:18px; }
+.db-label {
+  display:block; font-size:11px; letter-spacing:0.18em; font-weight:700;
+  color:rgba(201,168,76,0.7); margin-bottom:8px;
+}
+.db-input, .db-select {
+  width:100%; padding:14px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1.5px solid rgba(201,168,76,0.2);
+  color:var(--paper); font-size:15px;
+  font-family:'Noto Sans KR',sans-serif;
+  outline:none; border-radius:2px;
+  transition:border-color 0.2s, background 0.2s;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.db-input:focus, .db-select:focus {
+  border-color:rgba(201,168,76,0.6);
+  background:rgba(255,255,255,0.08);
+}
+.db-input::placeholder { color:rgba(245,237,216,0.2); }
+.db-select option { background:#1a1008; color:var(--paper); }
+
+.db-agree {
+  display:flex; align-items:flex-start; gap:12px;
+  margin-bottom:24px; cursor:pointer;
+}
+.db-agree input[type=checkbox] {
+  width:18px; height:18px; flex-shrink:0; margin-top:2px;
+  accent-color:var(--gold);
+}
+.db-agree-text { font-size:12px; color:rgba(245,237,216,0.4); line-height:1.6; }
+.db-agree-text b { color:rgba(201,168,76,0.7); }
+
+.db-submit {
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(14px,3.8vw,17px); font-weight:700;
+  letter-spacing:0.12em; color:var(--ink);
+  background:linear-gradient(135deg,#8B6914,#C9A84C,#E8CC7A);
+  border:none; cursor:pointer; padding:19px;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  position:relative; overflow:hidden;
+  transition:transform 0.25s, box-shadow 0.25s;
+}
+.db-submit::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,0.28),transparent 70%);
+  transform:translateX(-100%); transition:transform 0.55s;
+}
+.db-submit:hover::after { transform:translateX(100%); }
+.db-submit:hover { transform:scale(1.03); box-shadow:0 0 36px rgba(201,168,76,0.4); }
+.db-submit:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+.db-privacy { font-size:11px; color:rgba(245,237,216,0.25); text-align:center; margin-top:16px; line-height:1.7; }
+</style>
+</head>
+<body>
+
+<!-- S1 INTRO -->
+<div class="screen active" id="s-intro">
+  <canvas id="ceilingCanvas"></canvas>
+  <canvas id="eyeOverlay"></canvas>
+  <div class="intro-caption" id="introCaption">눈을 뜹니다…</div>
+  <button class="skip-btn" id="skipBtn">건너뛰기</button>
+</div>
+
+<!-- S2 STORY -->
+<div class="screen" id="s-story">
+  <div class="story-bg-deco"></div>
+  <div class="story-wrap" id="storyWrap"></div>
+</div>
+
+<!-- S3 QUIZ -->
+<div class="screen scrollable" id="s-quiz">
+  <div class="quiz-shell">
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="q-slide in" id="qSlide"></div>
+  </div>
+</div>
+
+<!-- S4 OUTRO VID -->
+<div class="screen" id="s-outro">
+  <canvas id="blurCanvas"></canvas>
+  <canvas id="outroOverlay"></canvas>
+  <div class="outro-caption" id="outroCaption">눈앞이 흐려집니다…</div>
+</div>
+
+<!-- S5 OUTRO TEXT -->
+<div class="screen" id="s-outro-text">
+  <div class="story-bg-deco"></div>
+  <div class="story-wrap" id="outroWrap"></div>
+</div>
+
+<!-- S-LANDING -->
+<div class="screen scrollable" id="s-landing">
+  <div class="land-wrap">
+
+    <!-- ① 훅 섹션 -->
+    <div class="land-hook">
+      <div class="land-logo">
+        <img src="/moa-logo.png" alt="MOA Logo" referrerPolicy="no-referrer" />
+      </div>
+      <div class="land-hook-pre">당신의 왕 유형이 정해졌습니다</div>
+      <h1 class="land-hook-title">
+        결과를 보기 전에,<br>
+        <em>대학생이라면 꼭 알아야 할</em><br>
+        정보를 먼저 드릴게요.
+      </h1>
+      <p class="land-hook-sub">
+        매 학기 수백만 원을 놓치는 이유는<br>
+        몰라서가 아니라, <strong style="color:var(--paper)">못 찾아서</strong>입니다.<br>
+        모아가 대신 찾아드립니다.
+      </p>
+      <button class="land-cta-primary" onclick="showScreen('s-dbform')">
+        👑 무료로 받고 결과 확인하기
+      </button>
+      <div class="land-hook-note">무료 · 1분 완성 · 스팸 없음</div>
+    </div>
+
+    <!-- ② 리워드 소개 -->
+    <div class="land-section">
+      <div class="land-tag">모아 인사이트 레터 시즌 1</div>
+      <h2 class="land-title">
+        남들은 이미 알고 있는<br>청년 정보들이 있습니다
+      </h2>
+      <p class="land-desc">
+        장학금, 지원금, 공모전, 대외활동—<br>
+        있는 건 알지만 어디서 찾는지 모르는 정보들을<br>
+        한 번에 정리했습니다.
+      </p>
+
+      <div class="land-cards">
+        <div class="land-card">
+          <div class="land-card-icon">📋</div>
+          <div>
+            <div class="land-card-title">장학금 · 청년 지원금 정보 모음</div>
+            <div class="land-card-desc">국가·지자체·기업 장학금 중 신청률이 낮아 경쟁이 낮은 것들만 골라 정리. 재학 중 최대 수백만 원 수령 가능.</div>
+          </div>
+        </div>
+        <div class="land-card">
+          <div class="land-card-icon">💡</div>
+          <div>
+            <div class="land-card-title">공모전 · 대외활동 인사이트</div>
+            <div class="land-card-desc">이력서 한 줄을 만드는 가장 빠른 방법. 수상 가능성 높은 공모전과 취업에 실제로 도움되는 대외활동만 선별.</div>
+          </div>
+        </div>
+        <div class="land-card">
+          <div class="land-card-icon">🔗</div>
+          <div>
+            <div class="land-card-title">놓치기 아까운 청년 기회들</div>
+            <div class="land-card-desc">지금 당장 신청할 수 있는 인턴십, 교육 프로그램, 해외 지원사업까지. 마감 전 딱 맞는 타이밍에 전달.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="land-stat-row">
+        <div class="land-stat-num">총 12편</div>
+        <div class="land-stat-label">엄선한 정보 아카이브<br><span style="color:rgba(201,168,76,0.6)">지금 무료 제공 중</span></div>
+      </div>
+    </div>
+
+    <!-- ③ 신뢰 섹션 -->
+    <div class="land-section">
+      <div class="land-tag">실제 반응</div>
+      <h2 class="land-title">
+        이미 3,200명이<br>받아봤습니다
+      </h2>
+      <p class="land-desc">복잡한 가입 없이, 정보만 남기면 바로 전달돼요.</p>
+
+      <div class="land-reviews">
+        <div class="land-review">
+          <div class="land-review-text">"이런 장학금이 있는 줄 몰랐어요. 신청해서 실제로 받았습니다. 진작 알았으면 이전 학기에도 신청했을 텐데."</div>
+          <div class="land-review-who">경영학과 3학년 · 서울</div>
+        </div>
+        <div class="land-review">
+          <div class="land-review-text">"공모전 어디서 찾냐고 항상 물어보던 게 여기 다 있었어요. 첫 공모전 나가서 입선했습니다."</div>
+          <div class="land-review-who">디자인학과 2학년 · 경기</div>
+        </div>
+        <div class="land-review">
+          <div class="land-review-text">"저만 알고 싶은 정보예요. 친구들한테 알려줬다가 같이 신청하게 됐어요."</div>
+          <div class="land-review-who">사회학과 4학년 · 부산</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 최종 CTA -->
+    <div class="land-final">
+      <div class="land-final-title">
+        지금 신청하면<br>결과와 함께 바로 전달돼요
+      </div>
+      <p class="land-final-sub">
+        신청 후 바로 내 왕 유형 결과를 확인할 수 있어요.<br>
+        1분이면 충분합니다.
+      </p>
+      <button class="land-cta-primary" onclick="showScreen('s-dbform')">
+        👑 무료로 받고 결과 확인하기
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- S-DBFORM -->
+<div class="screen scrollable" id="s-dbform">
+  <div class="form-wrap">
+    <div class="form-inner-wrap">
+      <div class="form-logo">
+        <img src="/moa-logo.png" alt="MOA Logo" referrerPolicy="no-referrer" />
+      </div>
+      <h2 class="form-title">
+        딱 1분이면 됩니다.<br>
+        <span style="color:var(--gold-light)">정보 받을 곳만</span> 알려주세요.
+      </h2>
+      <p class="form-sub">입력 후 내 왕 유형 결과를 바로 확인할 수 있어요.</p>
+
+      <div class="db-form" id="dbFormContent">
+        <div class="db-group">
+          <label class="db-label">이름</label>
+          <input class="db-input" type="text" id="db-name" placeholder="홍길동" maxlength="20" />
+        </div>
+        <div class="db-group">
+          <label class="db-label">전화번호</label>
+          <input class="db-input" type="tel" id="db-phone" placeholder="010-0000-0000" maxlength="13" />
+        </div>
+        <div class="db-group">
+          <label class="db-label">생년월일</label>
+          <input class="db-input" type="text" id="db-birth" placeholder="2002.03.14 (예시)" maxlength="12" />
+        </div>
+        <div class="db-group">
+          <label class="db-label">거주 지역</label>
+          <select class="db-select" id="db-region">
+            <option value="" disabled selected>시 / 도 선택</option>
+            <option>서울특별시</option>
+            <option>경기도</option>
+            <option>인천광역시</option>
+            <option>부산광역시</option>
+            <option>대구광역시</option>
+            <option>광주광역시</option>
+            <option>대전광역시</option>
+            <option>울산광역시</option>
+            <option>세종특별자치시</option>
+            <option>강원도</option>
+            <option>충청북도</option>
+            <option>충청남도</option>
+            <option>전라북도</option>
+            <option>전라남도</option>
+            <option>경상북도</option>
+            <option>경상남도</option>
+            <option>제주특별자치도</option>
+          </select>
+        </div>
+
+        <label class="db-agree">
+          <input type="checkbox" id="db-agree" />
+          <span class="db-agree-text">
+            <b>[필수] 개인정보 수집·이용 동의</b><br>
+            수집 항목: 이름, 전화번호, 생년월일, 지역 / 이용 목적: 모아 레터 및 서비스 제공 / 보유 기간: 서비스 종료 시까지
+          </span>
+        </label>
+
+        <button class="db-submit" id="dbSubmitBtn" onclick="handleDbSubmit()">
+          👑 &nbsp;내 유형 결과 + 레터 받기
+        </button>
+        <p class="db-privacy">입력하신 정보는 서비스 제공 목적 외에 사용되지 않습니다</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- S6 RESULT -->
+<div class="screen scrollable" id="s-result">
+  <div class="result-shell" id="resultShell"></div>
+</div>
+
+<script>
+/* ═════════════════ DATA ═════════════════ */
+
+const STORY = [
+  {t:'s-md', tx:'자고 일어났더니'},
+  {t:'s-lg', tx:'낯선 천장이 보입니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'밖에서는 누군가 다급하게 외칩니다.'},
+  {t:'gap'},
+  {t:'s-lg s-gold', tx:'"전하! 조회에 드실 시간이옵니다!"'},
+  {t:'gap'},
+  {t:'s-sm', tx:'문 밖에는 대신들과 신하들이 기다리고 있고'},
+  {t:'s-md', tx:"모두 당신을 '왕'이라 부르고 있습니다."},
+  {t:'gapl'},
+  {t:'div'},
+  {t:'gap'},
+  {t:'s-sm', tx:'꿈인지 현실인지 모르겠지만'},
+  {t:'s-lg s-gold', tx:'지금 당신은 조선의 왕입니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'왕마다 문제를 바라보는 방식이 달랐습니다.'},
+  {t:'gap'},
+  {t:'s-lg', tx:'당신은 어떤 왕일까요?'},
+  {t:'cta', tx:'👑 나는 어떤 왕이었을까?', fn:'startQuiz'},
+];
+
+const OUTRO = [
+  {t:'s-lg', tx:'눈앞이 흐려집니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'궁의 등불이 멀어지고'},
+  {t:'s-sm', tx:'신하들의 목소리도 점점 희미해집니다.'},
+  {t:'gap'},
+  {t:'s-lg s-gold', tx:'"전하…"'},
+  {t:'gapl'},
+  {t:'s-lg', tx:'그리고 다시 눈을 뜹니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'익숙한 현실입니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'하지만 방금 당신이 했던 선택들은'},
+  {t:'s-md', tx:'사라지지 않았습니다.'},
+  {t:'gap'},
+  {t:'s-sm', tx:'왕의 자리에서 드러난 태도는'},
+  {t:'s-lg s-gold', tx:'지금 당신이 문제를 해결하는 방식입니다.'},
+  {t:'cta', tx:'👑 내 유형 결과 확인하기', fn:'showResult'},
+];
+
+const QS = [
+  { sit:'아침 조회', q:'문 밖이 소란스럽습니다.\n대신들이 이미 모여있는 것 같습니다.', sub:'당신은 어떻게 하겠습니까?', a:['일단 무슨 상황인지\n조용히 살펴본다','바로 문을 열고 나가\n상황을 정리한다'], icon:'🏯', c1:'#1C130A', c2:'#2E1F0E' },
+  { sit:'조회에서', q:'대신들이 서로 자기 말만 맞다고\n다투고 있습니다.', sub:'당신은 어떻게 하겠습니까?', a:['왜 의견이 갈리는지\n하나씩 들어본다','길어지기 전에\n한쪽으로 정리한다'], icon:'⚖️', c1:'#0E1722', c2:'#1A2840' },
+  { sit:'민심', q:'백성들이 세금이 너무 힘들다며\n상소를 올렸습니다.', sub:'하지만 나라 살림도 넉넉하지 않습니다.', a:['왜 이런 문제가 생겼는지\n원인부터 살핀다','지금 당장 백성 부담을 줄일\n현실적인 방법을 찾는다'], icon:'📜', c1:'#142210', c2:'#1E3A18' },
+  { sit:'신하의 실수', q:'가장 믿던 신하가\n큰 실수를 저질렀습니다.', sub:'조정에서는 처벌해야 한다고 합니다.', a:['왜 그런 일이 생겼는지\n먼저 이야기를 들어본다','다시는 이런 일이 없도록\n바로 기준을 세운다'], icon:'🗡️', c1:'#1A0C0C', c2:'#2E1414' },
+  { sit:'외교', q:'이웃 나라와의 관계가\n점점 불안해지고 있습니다.', sub:'당신의 선택은?', a:['충분히 상황을 파악한 뒤\n결정한다','오래 끌지 않고\n방향을 빠르게 정한다'], icon:'🌏', c1:'#0E1520', c2:'#1A2438' },
+  { sit:'조정의 갈등', q:'조정 안에서 신하들 사이의\n갈등이 커지고 있습니다.', sub:'당신은?', a:['서로의 입장을 이해시키며\n관계를 먼저 풀어본다','갈등을 길게 두지 않고\n결정을 내려 정리한다'], icon:'🏛️', c1:'#1A160A', c2:'#2E260E' },
+  { sit:'새 정책', q:'새로운 정책을 만들\n기회가 생겼습니다.', sub:'하지만 서두르면 반발이 클 수도 있습니다.', a:['충분히 고민하고 준비한 뒤\n추진한다','기회가 왔을 때\n바로 밀어붙인다'], icon:'📋', c1:'#101A12', c2:'#182A1C' },
+  { sit:'밤의 궁궐', q:'밤이 깊었습니다.\n오늘 하루를 돌아봅니다.', sub:'당신이 더 믿는 방식은?', a:['충분히 이해하면\n결국 답이 보인다','고민보다 결정이\n상황을 바꾼다'], icon:'🌙', c1:'#080E18', c2:'#101824' },
+];
+
+const RESULTS = [
+  {
+    id:'sejong', name:'백성을 먼저 생각하는 성군형 왕', king:'세종대왕', crown:'👑',
+    mbti:'ENFJ / INFJ',
+    quote:'"백성이 편안하면 나라가 편안하다."',
+    word:'仁政', wordMean:'인정 — 어진 정치',
+    desc:[
+      '당신은 <b>사람을 중심에 두고 생각하는 리더</b>입니다. 어떤 문제가 생겼을 때 "왜 이런 일이 일어났을까?"를 먼저 묻고, 근본 원인을 파악한 뒤 움직입니다.',
+      '지식과 배움을 가치있게 여기며, 자신만 아는 것이 아니라 주변 사람들도 함께 성장할 수 있도록 이끄는 영향력이 있습니다. 공동체 전체의 이익을 위해 기꺼이 시간을 들이고 에너지를 쏟습니다.',
+      '세종대왕처럼, 당신은 <b>단기 성과보다 지속 가능한 변화를 만들어내는 사람</b>입니다. 지금 당장 눈에 띄지 않아도, 당신이 만든 흐름은 오래 남습니다.',
+    ],
+    strengths:['사람의 마음을 읽는 공감력','근본 원인을 파악하는 분석력','지식을 나누는 리더십','지속 가능한 해결책 도출'],
+    weakness:['결정이 느려 타이밍을 놓칠 수 있음','모두를 만족시키려다 지칠 수 있음'],
+    tip:'때로는 "완벽한 준비" 대신 빠른 실행이 더 좋은 결과를 냅니다. 당신의 인사이트는 충분히 믿을 만합니다.',
+    pal:{ bg1:'#0D1A08', bg2:'#1A300E', acc:'#7AB648', frame:'#4A8C20' },
+  },
+  {
+    id:'sejo', name:'목표를 이루는 전략가 왕', king:'세조', crown:'⚔️',
+    mbti:'ENTJ / INTJ',
+    quote:'"기회는 준비된 자에게만 온다."',
+    word:'決斷', wordMean:'결단 — 과감한 결정',
+    desc:[
+      '당신은 <b>목표를 세우면 반드시 이루는 실행형 리더</b>입니다. 감정보다 냉철한 판단을 우선하고, 상황을 빠르게 분석해 가장 효율적인 경로를 찾아냅니다.',
+      '모호한 상황에서도 방향을 명확히 제시하는 능력이 있으며, 필요하다면 불편한 결정도 내릴 수 있는 강단이 있습니다. 주변 사람들은 당신의 추진력과 명확한 기준에 신뢰감을 느낍니다.',
+      '세조처럼, 당신은 <b>복잡한 판세를 읽고 승부처에서 움직이는 전략적 감각</b>이 뛰어난 사람입니다.',
+    ],
+    strengths:['빠르고 명확한 의사결정','상황을 구조화하는 능력','목표 달성을 위한 강한 추진력','효율을 극대화하는 전략 사고'],
+    weakness:['결과 중시로 주변을 소외시킬 수 있음','예상 밖 변수에 취약할 수 있음'],
+    tip:'당신의 결단력은 강점이지만, 팀과의 공감과 소통이 더해질 때 진짜 리더십이 완성됩니다.',
+    pal:{ bg1:'#1A0808', bg2:'#300E0E', acc:'#C9503A', frame:'#8C2020' },
+  },
+  {
+    id:'danjong', name:'신념을 지키는 이상주의 왕', king:'단종', crown:'🌸',
+    mbti:'INFP / INFJ',
+    quote:'"옳은 것은 옳고, 그른 것은 그르다."',
+    word:'義理', wordMean:'의리 — 올바른 도리',
+    desc:[
+      '당신은 <b>원칙과 신념을 삶의 기준으로 삼는 사람</b>입니다. 눈앞의 이익보다 "이것이 옳은 일인가?"를 먼저 묻고, 그 답에 따라 행동합니다.',
+      '사람을 쉽게 믿고 진심으로 대하는 성향이 있습니다. 관계에서 진정성을 매우 중요하게 여기며, 겉과 속이 다른 행동을 하지 못하는 타입입니다.',
+      '단종처럼, 당신은 <b>어떤 상황에서도 자신만의 도덕적 기준을 잃지 않는 사람</b>입니다. 그 순수함 자체가 당신의 가장 큰 강점입니다.',
+    ],
+    strengths:['흔들리지 않는 가치관','사람을 진심으로 대하는 따뜻함','관계에서의 높은 신뢰도','도덕적 용기와 정직함'],
+    weakness:['이상 우선으로 현실에서 손해 볼 수 있음','지나친 신뢰로 배신을 경험하기도 함'],
+    tip:'당신의 신념은 소중합니다. 거기에 현실을 전략적으로 읽는 눈도 함께 키운다면, 그 신념을 더 오래 지킬 수 있습니다.',
+    pal:{ bg1:'#08101A', bg2:'#0E1C30', acc:'#4A8BC9', frame:'#2060A0' },
+  },
+  {
+    id:'gwanghae', name:'위기를 돌파하는 현실 리더형 왕', king:'광해군', crown:'🔥',
+    mbti:'INTJ / ISTJ',
+    quote:'"살아남아야 다음이 있다."',
+    word:'實利', wordMean:'실리 — 현실적 이익',
+    desc:[
+      '당신은 <b>어떤 상황에서도 냉정하게 최선의 선택을 찾아내는 현실 감각</b>을 가진 사람입니다. 감정에 휘둘리기보다 "지금 가장 합리적인 선택이 무엇인가"를 중심으로 판단합니다.',
+      '복잡하고 어려운 상황일수록 오히려 집중력이 올라가는 타입입니다. 위기 속에서도 균형을 잡고, 다양한 이해관계를 고려한 현실적인 해법을 만들어냅니다.',
+      '광해군처럼, 당신은 <b>어려운 상황에서 더 빛나는 리더</b>입니다. 정답이 없는 상황에서도 최선의 판단을 내리고 앞으로 나아가는 힘이 있습니다.',
+    ],
+    strengths:['위기에서 빛나는 판단력','감정이 아닌 상황을 보는 냉철함','다양한 이해관계 조율 능력','실용적인 해결책 도출'],
+    weakness:['원칙보다 결과 중시로 신뢰를 잃을 수 있음','단기 실리에 집중해 장기 비전을 놓칠 수 있음'],
+    tip:'당신의 현실 감각은 매우 소중한 자산입니다. 여기에 일관된 원칙 하나를 더한다면, 사람들이 당신을 더욱 믿고 따를 것입니다.',
+    pal:{ bg1:'#141408', bg2:'#222210', acc:'#C9A84C', frame:'#8B7020' },
+  },
+];
+
+/* ═════════════════ STATE ═════════════════ */
+let answers = [], curQ = 0, introDone = false, introRafId = null;
+
+/* ═════════════════ SCREEN ═════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ═════════════════ EASING ═════════════════ */
+function eio(x) { return x < 0.5 ? 2*x*x : 1-Math.pow(-2*x+2,2)/2; }
+
+/* ═════════════════ EYE MASK ═════════════════ */
+function drawEyeMask(ectx, W, H, openFrac) {
+  ectx.clearRect(0, 0, W, H);
+  if (openFrac >= 0.999) return;
+
+  const cx = W / 2, cy = H / 2;
+  const eyeA = W * 0.52;               // 가로 반축 (화면 너비의 52%)
+  const eyeB = H * 0.56 * openFrac;    // 세로 반축 (열릴수록 커짐)
+
+  // 전체 검정 채우기 (감긴 눈꺼풀)
+  ectx.fillStyle = '#000';
+  ectx.fillRect(0, 0, W, H);
+
+  if (openFrac > 0.005) {
+    // 타원형으로 뚫어서 천장이 보이게
+    ectx.save();
+    ectx.globalCompositeOperation = 'destination-out';
+    ectx.beginPath();
+    ectx.ellipse(cx, cy, eyeA, eyeB, 0, 0, Math.PI * 2);
+    ectx.fill();
+    ectx.restore();
+
+    // 눈꺼풀 가장자리 부드러운 그림자
+    ectx.save();
+    ectx.globalCompositeOperation = 'source-over';
+    ectx.strokeStyle = 'rgba(0,0,0,0.85)';
+    ectx.lineWidth = Math.max(6, H * 0.018);
+    ectx.beginPath();
+    ectx.ellipse(cx, cy, eyeA, eyeB, 0, 0, Math.PI * 2);
+    ectx.stroke();
+    ectx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ectx.lineWidth = Math.max(14, H * 0.04);
+    ectx.beginPath();
+    ectx.ellipse(cx, cy, eyeA + 4, eyeB + 2, 0, 0, Math.PI * 2);
+    ectx.stroke();
+    ectx.restore();
+  }
+}
+
+/* ═════════════════ CEILING CANVAS ═════════════════ */
+function initCeiling() {
+  const canvas = document.getElementById('ceilingCanvas');
+  const ctx = canvas.getContext('2d');
+  const eyeCvs = document.getElementById('eyeOverlay');
+  const eyeCtx2 = eyeCvs.getContext('2d');
+  const cap  = document.getElementById('introCaption');
+
+  function resize() {
+    canvas.width = eyeCvs.width = window.innerWidth;
+    canvas.height = eyeCvs.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  /*
+    Eye-blink timeline (seconds):
+    0.0       – fully closed (start dark)
+    0.0-0.7   – blink OPEN #1 (reveal ceiling briefly)
+    0.7-1.1   – hold open #1
+    1.1-1.5   – blink CLOSE #1
+    1.5-2.1   – blink OPEN #2
+    2.1-2.6   – hold open #2
+    2.6-3.0   – blink CLOSE #2
+    3.0-4.5   – OPEN WIDE & stay (slow open)
+    4.5+      – ceiling fully revealed, show caption
+    7.5       – go to story
+  */
+  function getLidFrac(t) {
+    // Returns 0..1: 1 = fully CLOSED, 0 = fully OPEN
+    if (t < 0.7)  return 1 - eio(t / 0.7);           // open #1
+    if (t < 1.1)  return 0;                            // hold open #1
+    if (t < 1.5)  return eio((t-1.1)/0.4);            // close #1
+    if (t < 2.1)  return 1 - eio((t-1.5)/0.6);        // open #2
+    if (t < 2.6)  return 0;                            // hold open #2
+    if (t < 3.0)  return eio((t-2.6)/0.4);            // close #2
+    if (t < 4.5)  return 1 - eio((t-3.0)/1.5);        // open WIDE
+    return 0;                                           // fully open
+  }
+
+  function drawCeiling(W, H, openFrac) {
+    // openFrac: 0=closed/dark  1=fully open/bright
+    ctx.clearRect(0, 0, W, H);
+
+    // ── PLASTER ceiling base ──
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#35231A');
+    bg.addColorStop(0.3, '#4A3020');
+    bg.addColorStop(0.65, '#3A2418');
+    bg.addColorStop(1, '#200F08');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Stone/plaster texture: vertical joints with perspective ──
+    // Perspective vanishing point at top-center
+    const vpx = W * 0.5, vpy = -H * 0.15;
+    ctx.strokeStyle = 'rgba(60,35,18,0.7)';
+    ctx.lineWidth = 2;
+    const numCols = 7;
+    for (let c = 0; c <= numCols; c++) {
+      const bx = (c / numCols) * W;
+      ctx.beginPath();
+      ctx.moveTo(vpx + (bx - vpx) * 0.05, vpy);
+      ctx.lineTo(bx, H * 1.05);
+      ctx.stroke();
+    }
+
+    // Horizontal joints (straight, evenly spaced)
+    const numRows = 6;
+    ctx.strokeStyle = 'rgba(50,28,12,0.65)';
+    ctx.lineWidth = 1.5;
+    for (let r = 1; r < numRows; r++) {
+      const y = (r / numRows) * H;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+
+    // ── Subtle plaster surface variation ──
+    for (let i = 0; i < 12; i++) {
+      const px = (i/12)*W + 20;
+      const py = H * 0.3 + (i%3)*H*0.15;
+      const rg = ctx.createRadialGradient(px,py,0,px,py,W*0.12);
+      rg.addColorStop(0,'rgba(180,130,80,0.04)');
+      rg.addColorStop(1,'transparent');
+      ctx.fillStyle = rg; ctx.fillRect(0,0,W,H);
+    }
+
+    // ── Main structural BEAMS (thick horizontal, lacquered dark wood) ──
+    const beamH = Math.max(22, H * 0.048);
+    const beamYs = [H*0.16, H*0.43, H*0.70];
+    beamYs.forEach((by) => {
+      // Shadow below beam
+      const shadow = ctx.createLinearGradient(0, by+beamH, 0, by+beamH*2.2);
+      shadow.addColorStop(0,'rgba(0,0,0,0.45)');
+      shadow.addColorStop(1,'transparent');
+      ctx.fillStyle = shadow;
+      ctx.fillRect(0, by+beamH, W, beamH*1.5);
+
+      // Beam body
+      const bGrad = ctx.createLinearGradient(0, by, 0, by+beamH);
+      bGrad.addColorStop(0, '#5A3A18');
+      bGrad.addColorStop(0.18, '#7A5228');
+      bGrad.addColorStop(0.5, '#6B4820');
+      bGrad.addColorStop(0.85, '#4A2E10');
+      bGrad.addColorStop(1, '#2E1A06');
+      ctx.fillStyle = bGrad;
+      ctx.fillRect(0, by, W, beamH);
+
+      // Top highlight (lacquer sheen)
+      ctx.fillStyle = 'rgba(200,160,90,0.14)';
+      ctx.fillRect(0, by, W, 3);
+      // Gold edge bands
+      ctx.fillStyle = 'rgba(201,168,76,0.4)';
+      ctx.fillRect(0, by, W, 2);
+      ctx.fillRect(0, by+beamH-2, W, 2);
+
+      // Wood grain lines
+      ctx.strokeStyle = 'rgba(30,15,5,0.3)';
+      ctx.lineWidth = 0.8;
+      for (let g = 0; g < 5; g++) {
+        const gy = by + (g/5)*beamH + 2;
+        ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(W,gy); ctx.stroke();
+      }
+    });
+
+    // ── Dancheong (단청) decorative paint on beams ──
+    const dancheongColors = [
+      'rgba(180,40,40,0.6)',
+      'rgba(40,90,180,0.55)',
+      'rgba(40,160,60,0.5)',
+      'rgba(200,160,20,0.55)',
+      'rgba(180,100,40,0.5)',
+    ];
+    beamYs.forEach((by, bi) => {
+      const segW = W / 14;
+      for (let i = 0; i < 14; i++) {
+        const sx = i * segW;
+        const col = dancheongColors[(i + bi*2) % dancheongColors.length];
+        // Outer block
+        ctx.fillStyle = col;
+        ctx.fillRect(sx+1, by+3, segW-2, beamH-6);
+        // Inner lighter block
+        ctx.fillStyle = col.replace('0.', '0.3');
+        ctx.fillRect(sx+4, by+6, segW-8, beamH-12);
+        // Divider lines
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(sx+segW, by+3); ctx.lineTo(sx+segW, by+beamH-3); ctx.stroke();
+      }
+      // Gold medallions
+      for (let m = 1; m < 14; m += 3) {
+        const mx = m*segW + segW*0.5;
+        const my = by + beamH/2;
+        // Outer circle
+        ctx.beginPath(); ctx.arc(mx,my,beamH*0.38,0,Math.PI*2);
+        ctx.fillStyle='rgba(201,168,76,0.55)'; ctx.fill();
+        // Inner circle
+        ctx.beginPath(); ctx.arc(mx,my,beamH*0.22,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,220,100,0.8)'; ctx.fill();
+        // Dot
+        ctx.beginPath(); ctx.arc(mx,my,beamH*0.09,0,Math.PI*2);
+        ctx.fillStyle='rgba(120,60,10,0.9)'; ctx.fill();
+      }
+    });
+
+    // ── Vertical columns / pillars ──
+    const colXs = [W*0.13, W*0.35, W*0.65, W*0.87];
+    const colW  = Math.max(18, W * 0.032);
+    colXs.forEach(cx => {
+      const cGrad = ctx.createLinearGradient(cx-colW/2,0,cx+colW/2,0);
+      cGrad.addColorStop(0,'#200F05');
+      cGrad.addColorStop(0.25,'#5A3818');
+      cGrad.addColorStop(0.55,'#4A2E10');
+      cGrad.addColorStop(0.8,'#351A08');
+      cGrad.addColorStop(1,'#150A03');
+      ctx.fillStyle = cGrad;
+      ctx.fillRect(cx-colW/2, 0, colW, H);
+      // Gold edges
+      ctx.fillStyle='rgba(201,168,76,0.35)';
+      ctx.fillRect(cx-colW/2, 0, 2, H);
+      ctx.fillRect(cx+colW/2-2, 0, 2, H);
+      // Shadow
+      const cSh = ctx.createLinearGradient(cx+colW/2,0,cx+colW/2+16,0);
+      cSh.addColorStop(0,'rgba(0,0,0,0.35)'); cSh.addColorStop(1,'transparent');
+      ctx.fillStyle=cSh; ctx.fillRect(cx+colW/2,0,16,H);
+    });
+
+    // ── Hanging lanterns ──
+    const lxs = [W*0.27, W*0.5, W*0.73];
+    const swing = Math.sin(Date.now()*0.001) * 4;
+    lxs.forEach((lx, li) => {
+      const lsw = swing * (li%2===0?1:-1);
+      const bx = lx + lsw;
+      const hangFrom = beamYs[0] + beamH;
+      const lby = hangFrom + H * 0.18 + li * H * 0.02;
+
+      // Cord
+      ctx.strokeStyle='rgba(100,65,28,0.85)';
+      ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(lx, hangFrom); ctx.lineTo(bx, lby-22); ctx.stroke();
+
+      // Glow halo
+      const gR = ctx.createRadialGradient(bx,lby,0,bx,lby,60);
+      gR.addColorStop(0,'rgba(255,150,30,0.5)');
+      gR.addColorStop(0.4,'rgba(255,110,20,0.2)');
+      gR.addColorStop(1,'transparent');
+      ctx.fillStyle=gR; ctx.fillRect(bx-60,lby-60,120,120);
+
+      // Lantern body
+      ctx.save(); ctx.translate(bx,lby);
+      // Top cap
+      const capGr = ctx.createLinearGradient(-11,-26,11,-26);
+      capGr.addColorStop(0,'#3A0808'); capGr.addColorStop(0.5,'#6B1010'); capGr.addColorStop(1,'#3A0808');
+      ctx.fillStyle=capGr; ctx.fillRect(-11,-26,22,7);
+      // Body (trapezoid)
+      const bodyGr = ctx.createLinearGradient(-13,-19,13,-19);
+      bodyGr.addColorStop(0,'#6B1010'); bodyGr.addColorStop(0.5,'#C03030'); bodyGr.addColorStop(1,'#6B1010');
+      ctx.fillStyle=bodyGr;
+      ctx.beginPath();
+      ctx.moveTo(-13,-19); ctx.lineTo(13,-19);
+      ctx.lineTo(10,16); ctx.lineTo(-10,16);
+      ctx.closePath(); ctx.fill();
+      // Translucent inner glow
+      ctx.fillStyle='rgba(255,200,70,0.28)';
+      ctx.beginPath();
+      ctx.moveTo(-9,-14); ctx.lineTo(9,-14);
+      ctx.lineTo(7,12); ctx.lineTo(-7,12);
+      ctx.closePath(); ctx.fill();
+      // Horizontal ribs
+      for (let r=0;r<3;r++) {
+        ctx.fillStyle='rgba(80,10,10,0.7)';
+        ctx.fillRect(-12,-14+r*10,24,2);
+      }
+      // Bottom cap
+      ctx.fillStyle='#3A0808'; ctx.fillRect(-10,14,20,5);
+      // Tassel cord
+      ctx.strokeStyle='rgba(190,150,40,0.9)'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(0,19); ctx.lineTo(0,34); ctx.stroke();
+      // Tassel bead
+      ctx.beginPath(); ctx.arc(0,36,3.5,0,Math.PI*2);
+      ctx.fillStyle='rgba(190,150,40,0.9)'; ctx.fill();
+      ctx.restore();
+    });
+
+    // ── Ceiling center medallion ornament ──
+    const cmx=W*0.5, cmy=H*0.29, cmR=Math.min(W*0.1,H*0.12);
+    // Outer glow
+    const cmGl=ctx.createRadialGradient(cmx,cmy,0,cmx,cmy,cmR*2.5);
+    cmGl.addColorStop(0,'rgba(201,168,76,0.2)');
+    cmGl.addColorStop(1,'transparent');
+    ctx.fillStyle=cmGl; ctx.fillRect(0,0,W,H);
+    // Rings
+    [1, 0.72, 0.44].forEach((r,i)=>{
+      ctx.beginPath(); ctx.arc(cmx,cmy,cmR*r,0,Math.PI*2);
+      ctx.strokeStyle=`rgba(201,168,76,${0.35+i*0.08})`; ctx.lineWidth=1.5; ctx.stroke();
+    });
+    // 8 petal dots
+    for(let p=0;p<8;p++){
+      const ang=(p/8)*Math.PI*2, pr=cmR*1.25;
+      ctx.beginPath(); ctx.arc(cmx+Math.cos(ang)*pr, cmy+Math.sin(ang)*pr, 3.5, 0, Math.PI*2);
+      ctx.fillStyle='rgba(201,168,76,0.45)'; ctx.fill();
+    }
+    // 龍 character center
+    ctx.save();
+    ctx.font=`bold ${cmR*1.2}px serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle='rgba(201,168,76,0.22)';
+    ctx.fillText('龍',cmx,cmy);
+    ctx.restore();
+
+    // ── Vignette ──
+    const vig=ctx.createRadialGradient(W/2,H*0.38,H*0.05,W/2,H*0.38,W*0.8);
+    vig.addColorStop(0,'transparent');
+    vig.addColorStop(1,'rgba(0,0,0,0.7)');
+    ctx.fillStyle=vig; ctx.fillRect(0,0,W,H);
+  }
+
+  let t = 0;
+  let captionShown = false;
+  function frame() {
+    if (introDone) return;
+    const W=canvas.width, H=canvas.height;
+    t += 1/60;
+
+    const lidFrac = getLidFrac(t);      // 0=open, 1=closed
+    const openFrac = 1 - lidFrac;
+    drawCeiling(W, H, openFrac);
+    drawEyeMask(eyeCtx2, W, H, openFrac);
+
+    if (t > 4.6 && !captionShown) { captionShown=true; cap.classList.add('show'); }
+    if (t > 7.5) { goToStory(); return; }
+
+    introRafId = requestAnimationFrame(frame);
+  }
+  introRafId = requestAnimationFrame(frame);
+}
+
+function goToStory() {
+  if (introDone) return;
+  introDone = true;
+  if (introRafId) cancelAnimationFrame(introRafId);
+  buildLines('storyWrap', STORY);
+  showScreen('s-story');
+  setTimeout(() => animLines('storyWrap'), 150);
+}
+
+/* ═════════════════ STORY BUILDER ═════════════════ */
+function buildLines(wid, lines) {
+  const w = document.getElementById(wid);
+  w.innerHTML = '';
+  lines.forEach((ln, i) => {
+    if (ln.t === 'gap')  { const d=document.createElement('div'); d.className='s-line s-gap';  d.dataset.i=i; w.appendChild(d); return; }
+    if (ln.t === 'gapl') { const d=document.createElement('div'); d.className='s-line s-gapl'; d.dataset.i=i; w.appendChild(d); return; }
+    if (ln.t === 'div')  { const d=document.createElement('div'); d.className='s-divider';     d.dataset.i=i; w.appendChild(d); return; }
+    if (ln.t === 'cta')  {
+      const wrap=document.createElement('div'); wrap.className='cta-wrap'; wrap.dataset.i=i;
+      const btn=document.createElement('button'); btn.className='cta-btn'; btn.textContent=ln.tx;
+      btn.onclick = window[ln.fn];
+      wrap.appendChild(btn); w.appendChild(wrap); return;
+    }
+    const p=document.createElement('p');
+    p.className = 's-line ' + ln.t;
+    p.textContent = ln.tx;
+    p.dataset.i = i;
+    w.appendChild(p);
+  });
+}
+
+function animLines(wid) {
+  const kids = document.getElementById(wid).children;
+  let delay = 0;
+  Array.from(kids).forEach(el => {
+    setTimeout(() => el.classList.add('vis'), delay);
+    delay += 195;
+  });
+}
+
+/* ═════════════════ QUIZ ═════════════════ */
+function renderQ(idx) {
+  const q = QS[idx];
+  document.getElementById('progFill').style.width = `${(idx/QS.length)*100}%`;
+  const slide = document.getElementById('qSlide');
+  slide.classList.remove('in'); slide.classList.add('out');
+  setTimeout(() => {
+    slide.innerHTML = `
+    <div class="q-top-bar"><span class="q-badge">Q${idx+1}</span><span class="q-of">/ ${QS.length}</span></div>
+    <div class="q-art"><canvas id="qc"></canvas></div>
+    <div class="q-body">
+      <div class="q-sit">📌 ${q.sit}</div>
+      <div class="q-main">${q.q.replace('\n','<br>')}</div>
+      <div class="q-sub-text">${q.sub}</div>
+    </div>
+    <div class="q-opts">
+      <button class="opt"><span class="opt-lbl">A</span><span class="opt-txt">${q.a[0].replace('\n','<br>')}</span></button>
+      <button class="opt"><span class="opt-lbl">B</span><span class="opt-txt">${q.a[1].replace('\n','<br>')}</span></button>
+    </div>`;
+    slide.classList.remove('out'); slide.classList.add('in');
+    drawQArt(q);
+    slide.querySelectorAll('.opt').forEach((b,oi) => b.addEventListener('click',()=>pick(oi)));
+  }, 320);
+}
+
+function drawQArt(q) {
+  const c = document.getElementById('qc');
+  if (!c) return;
+  c.width = c.offsetWidth||640; c.height = c.offsetHeight||260;
+  const ctx=c.getContext('2d'), W=c.width, H=c.height;
+  const g=ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,q.c1); g.addColorStop(1,q.c2);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(201,168,76,0.07)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=44){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=44){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  ctx.font=`${H*0.5}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.globalAlpha=0.12; ctx.fillStyle='#E8CC7A';
+  ctx.fillText(q.icon, W*0.76, H*0.52); ctx.globalAlpha=1;
+  const chars='王朝善決信義';
+  ctx.font='15px Noto Serif KR,serif'; ctx.textAlign='left';
+  ctx.fillStyle='rgba(201,168,76,0.07)';
+  for(let r=0;r<5;r++) for(let c2=0;c2<10;c2++) ctx.fillText(chars[(r*10+c2)%chars.length],c2*(W/10)+6,r*(H/5)+20);
+  const fi=10;
+  ctx.strokeStyle='rgba(201,168,76,0.38)'; ctx.lineWidth=1;
+  ctx.strokeRect(fi,fi,W-fi*2,H-fi*2);
+  [[fi,fi],[W-fi,fi],[fi,H-fi],[W-fi,H-fi]].forEach(([x,y])=>{
+    ctx.fillStyle='rgba(201,168,76,0.7)'; ctx.fillRect(x-3,y-3,6,6);
+  });
+  const gl=ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,H*0.7);
+  gl.addColorStop(0,'rgba(201,168,76,0.1)'); gl.addColorStop(1,'transparent');
+  ctx.fillStyle=gl; ctx.fillRect(0,0,W,H);
+  const fade=ctx.createLinearGradient(0,H*0.55,0,H);
+  fade.addColorStop(0,'transparent'); fade.addColorStop(1,'rgba(245,237,216,0.45)');
+  ctx.fillStyle=fade; ctx.fillRect(0,0,W,H);
+}
+
+function pick(oi) {
+  document.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('sel',i===oi));
+  answers.push(oi); curQ++;
+  setTimeout(()=>{ curQ<QS.length ? renderQ(curQ) : startOutroVid(); }, 460);
+}
+
+/* ═════════════════ OUTRO VIDEO ═════════════════ */
+function startOutroVid() {
+  showScreen('s-outro');
+  const canvas=document.getElementById('blurCanvas');
+  const ctx=canvas.getContext('2d');
+  const outroCvs=document.getElementById('outroOverlay');
+  const outroECtx=outroCvs.getContext('2d');
+  const cap=document.getElementById('outroCaption');
+  function resize(){
+    canvas.width=outroCvs.width=window.innerWidth;
+    canvas.height=outroCvs.height=window.innerHeight;
+  }
+  resize();
+  let ot=0, capShown=false;
+  function oframe(){
+    const W=canvas.width,H=canvas.height;
+    ot+=1/60;
+    ctx.clearRect(0,0,W,H);
+    const fade=Math.min(1,ot/2.5);
+    ctx.fillStyle=`rgba(8,4,2,${0.15+fade*0.75})`; ctx.fillRect(0,0,W,H);
+    for(let i=0;i<22;i++){
+      const ang=(i/22)*Math.PI*2+ot*0.1;
+      const r=(70+Math.sin(ot*0.4+i)*35)*fade;
+      const px=W/2+Math.cos(ang)*r, py=H/2+Math.sin(ang)*r*0.4;
+      const a=(0.22+Math.sin(ot+i)*0.18)*fade;
+      ctx.beginPath();ctx.arc(px,py,1.6,0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();
+    }
+    if(ot>1.0&&!capShown){capShown=true;cap.classList.add('show');}
+    // Eye close starts at 2.2s
+    if(ot>2.2){
+      const cp=Math.min(1,(ot-2.2)/1.1);
+      const openFrac=1-eio(cp);  // 1(열림) → 0(닫힘)
+      drawEyeMask(outroECtx, W, H, openFrac);
+    } else {
+      outroECtx.clearRect(0, 0, W, H);
+    }
+    if(ot<3.8) requestAnimationFrame(oframe);
+    else{
+      buildLines('outroWrap', OUTRO);
+      showScreen('s-outro-text');
+      setTimeout(()=>animLines('outroWrap'),150);
+    }
+  }
+  requestAnimationFrame(oframe);
+}
+
+/* ═════════════════ RESULT ═════════════════ */
+function calcResult() {
+  const aCount=answers.filter(a=>a===0).length;
+  const bCount=answers.filter(a=>a===1).length;
+  const people=[answers[1],answers[2],answers[5]].filter(a=>a===0).length;
+  const action=[answers[0],answers[4],answers[6]].filter(a=>a===1).length;
+  if(aCount>=5&&people>=2) return RESULTS[0];
+  if(bCount>=5&&action>=2) return RESULTS[1];
+  if(aCount>=4&&people<2)  return RESULTS[2];
+  return RESULTS[3];
+}
+
+function renderResult() {
+  const r=calcResult();
+  const shell=document.getElementById('resultShell');
+  shell.innerHTML=`
+  <div class="r-hero"><canvas id="rhc"></canvas><div class="r-hero-fade"></div><div class="r-crown">${r.crown}</div></div>
+  <div class="r-body">
+    <div class="r-overtag">👑 내가 조선시대 왕이었다면?</div>
+    <div><div class="r-name">${r.name}</div><div class="r-king">${r.king}</div></div>
+    <div class="r-word"><div class="r-word-chinese">${r.word}</div><div class="r-word-kor">${r.wordMean}</div></div>
+    <div class="r-line"></div>
+    <div class="r-quote">${r.quote}</div>
+    ${r.desc.map(d=>`<p class="r-desc">${d}</p>`).join('')}
+    <div class="r-line"></div>
+    <div class="sw-grid">
+      <div class="sw-card str"><div class="sw-label">강점 STRENGTH</div>${r.strengths.map(s=>`<div class="sw-item">${s}</div>`).join('')}</div>
+      <div class="sw-card wkn"><div class="sw-label">주의 WEAKNESS</div>${r.weakness.map(w=>`<div class="sw-item">${w}</div>`).join('')}</div>
+    </div>
+    <div class="r-mbti"><span class="r-mbti-l">MBTI</span><span class="r-mbti-v">${r.mbti}</span></div>
+    <div class="r-tip"><div class="r-tip-label">💡 당신에게 드리는 한 마디</div><div class="r-tip-text">${r.tip}</div></div>
+    <button class="retry-btn" id="retryBtn">↩ 다시 해보기</button>
+  </div>`;
+  setTimeout(()=>{
+    const rhc=document.getElementById('rhc');
+    if(!rhc) return;
+    rhc.width=rhc.offsetWidth||640; rhc.height=rhc.offsetHeight||380;
+    drawRHero(rhc.getContext('2d'),rhc.width,rhc.height,r);
+  },60);
+  document.getElementById('retryBtn').onclick=retryQuiz;
+}
+
+function drawRHero(ctx,W,H,r) {
+  const g=ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,r.pal.bg1); g.addColorStop(1,r.pal.bg2);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle=`${r.pal.acc}18`; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=55){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  ctx.font=`bold ${H*0.78}px Noto Serif KR,serif`;
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  ctx.fillStyle=r.pal.acc; ctx.globalAlpha=0.1;
+  ctx.fillText(r.word[0],W-10,H*0.55); ctx.globalAlpha=1;
+  ctx.strokeStyle=`${r.pal.frame}80`; ctx.lineWidth=2;
+  ctx.strokeRect(10,10,W-20,H-20);
+  [[10,10],[W-10,10],[10,H-10],[W-10,H-10]].forEach(([x,y])=>{
+    ctx.fillStyle=r.pal.acc; ctx.fillRect(x-4,y-4,8,8);
+  });
+  const gl=ctx.createRadialGradient(W*0.6,H*0.5,0,W*0.6,H*0.5,W*0.5);
+  gl.addColorStop(0,`${r.pal.acc}22`); gl.addColorStop(1,'transparent');
+  ctx.fillStyle=gl; ctx.fillRect(0,0,W,H);
+}
+
+/* ═════════════════ FLOW ═════════════════ */
+function skipIntro() { goToStory(); }
+function startQuiz() {
+  showScreen('s-quiz');
+  curQ=0; answers=[];
+  const sl=document.getElementById('qSlide');
+  sl.className='q-slide in'; sl.innerHTML='';
+  renderQ(0);
+}
+function showResult() { renderResult(); showScreen('s-result'); }
+function retryQuiz() {
+  answers=[]; curQ=0;
+  buildLines('storyWrap',STORY);
+  showScreen('s-story');
+  setTimeout(()=>animLines('storyWrap'),150);
+}
+
+window.skipIntro=skipIntro;
+window.startQuiz=startQuiz;
+window.showResult=showResult;
+window.retryQuiz=retryQuiz;
+
+document.getElementById('skipBtn').onclick=skipIntro;
+window.addEventListener('load', initCeiling);
+</script>
+</body>
+</html>
